@@ -1,16 +1,7 @@
 import requests
 from os import path
 from urllib import parse
-from pathlib import Path
 from time import sleep
-
-
-def new_directory(path: str):
-    Path(path).mkdir(parents=True, exist_ok=True)
-
-
-def destroy_directory(path: str):
-    Path(path).rmdir()
 
 
 def get_file_extension(file_link: str):
@@ -31,7 +22,12 @@ def download_image(url: str, file_path_and_ext: str):
     response = None
     for attempt in range(100):
         response = requests.get(url)
-        if response != None or attempt > 100:
+        response.raise_for_status()
+        decoded_response = response.json()
+        if 'error' in decoded_response:
+            raise requests.exceptions.HTTPError(decoded_response['error'])
+        if response or attempt > 100:
+            print(f"couldn't recieve any data from the requested server {url}")
             break
         sleep(5)
     with open(f"{file_path_and_ext}", "wb") as file:

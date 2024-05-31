@@ -22,3 +22,7 @@ def run_standalone_bot(bot, wait_mins: int):
             bot.telegram_bot.send_document(image)
             sleep(wait_time)
         sleep(wait_time)
+
+
+if __name__ == '__main__':
+    run_standalone_bot()

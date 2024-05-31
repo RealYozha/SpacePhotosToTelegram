@@ -29,6 +29,7 @@ Go to <https://api.nasa.gov/> and get an API key. Paste it into the `.env` file 
 Go to <https://t.me/BotFather/> and get your bot's token. Paste it into the `.env` file on line 2, instead of the placeholder.
 Make sure to check `.env` and ensure you've set it up:
 ```env
+IMAGES_DIRECTORY=("./images" or any other directory)
 NASA_API_TOKEN=(Your https://api.nasa.gov/ API key)
 TELEGRAM_BOT_TOKEN=(Your https://t.me/BotFather token)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Interval time in minutes)
@@ -51,7 +52,7 @@ Final result:
 
 ## `apod.py` and `epic.py`
 Downloads APOD / EPIC correspondingly.
-There's no option to run it, but it's a downloader file.
+TODO: Explain what happens after you run the file
 
 ### `get_apod(api_key: str, number: int)` and `get_epic(api_key: str, number: int)`
 Gets a set amount of APODs / EPICs using the API, with no edits.
@@ -78,8 +79,8 @@ Parameters:
 ## `filestream.py`
 A library for required file operations.
 
-### `new_directory(path: str)` and `destroy_directory(path: str)`
-Creates/removes a directory within the current path.
+### `create_directory(path: str)` and `destroy_directory(path: str)`
+Creates/destroys a directory within the current path.
 Parameters:
 - `path`: `str`; The path. (*Example: ./New_Folder Name/123/*)
 
@@ -153,6 +154,7 @@ pip install -r requirements.txt
 Перейдите по адресу <https://t.me/BotFather/> и получите токен вашего бота. Вставьте его в файл `.env` в строке 2 вместо заполнителя.
 Обязательно проверьте `.env` и убедитесь, что вы его настроили:
 ```env
+IMAGES_DIRECTORY=("./images" или любая другая директория)
 NASA_API_TOKEN=(Ваш https://api.nasa.gov/ ключ API)
 TELEGRAM_BOT_TOKEN=(Ваш токен https://t.me/BotFather)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Время интервала в минутах)
@@ -175,7 +177,7 @@ STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)
 
 ## `apod.py` и `epic.py`
 Загружает APOD/EPIC соответственно.
-Нет возможности запустить его, но это файл-загрузчик.
+TODO: Объяснить что произойдёт при запуске файла.
 
 ### `get_apod(api_key: str, number: int)` и `get_epic(api_key: str, number: int)`
 Получает заданное количество APOD/EPIC с помощью API без каких-либо изменений.
