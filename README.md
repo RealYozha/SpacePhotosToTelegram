@@ -20,7 +20,7 @@ The installation consists of 3 parts (if you have Python3 and pip3).
 1. Downloading;
 2. Installing dependencies;
 3. Getting API keys;
-To get the source, simply download `Installer.exe` and run it.
+To get the source, simply download it as a ZIP Package from GitHub.
 Use pip (or pip3, if there is a conflict with Python2) to install dependencies:
 ```bash
 pip install -r requirements.txt
@@ -145,7 +145,7 @@ Python3 должен быть уже установлен.
 1. Загрузка;
 2. Установка зависимостей;
 3. Получение API-ключей;
-Чтобы получить исходный код, просто перейдите по адресу `boxinstall/boxinstaller.exe`, загрузите и запустите его.
+Чтобы получить исходный код, просто скачайте код как ZIP с GitHub.
 Используйте pip (или pip3, если есть конфликт с Python2) для установки зависимостей:
 ```bash
 pip install -r requirements.txt
