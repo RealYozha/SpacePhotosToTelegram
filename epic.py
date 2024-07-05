@@ -1,21 +1,22 @@
 import argparse
 import filestream
-import requests
+import webstream
 import convert
 from time import sleep
 
 
 def get_epic(api_key: str, number: int):
     query = {"api_key": api_key}
-    response = requests.get(
-        "https://api.nasa.gov/EPIC/api/natural/images", params=query
-    )
-    response.raise_for_status()
-    decoded_response = response.json()
+    response = webstream.http_get("https://api.nasa.gov/EPIC/api/natural/images",
+                                  params=query,
+                                  json=None,
+                                  max_attempts=50,
+                                  tickrate=0.2)
     response.raise_for_status()
     decoded_response = response.json()
     if 'error' in decoded_response:
-        raise requests.exceptions.HTTPError(decoded_response['error'])
+        print('error!')
+        exit(1)
     date_with_dashes = str.split(decoded_response[number]["date"], " ")[0]
     date = convert.change_splitter(date_with_dashes, "-", "/")
     filename = decoded_response[number]["image"]
@@ -50,5 +51,5 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     api_key = args.api_key
-    amount = args.launch_id
+    amount = args.amount
     filestream.get_filename_from_url(get_epics(api_key, amount))

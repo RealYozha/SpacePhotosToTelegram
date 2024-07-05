@@ -1,31 +1,29 @@
 import argparse
 import filestream
-import requests
-from time import sleep
+import webstream
 
 
 def get_apod(api_key: str, number: int):
     query = {"api_key": api_key, "count": number}
-    response = requests.get("https://api.nasa.gov/planetary/apod",
-                            params=query)
-    response.raise_for_status()
+    response = webstream.http_get(url="https://api.nasa.gov/planetary/apod",
+                                  params=query,
+                                  json=None,
+                                  max_attempts=50,
+                                  tickrate=0.2)
     response.raise_for_status()
     decoded_response = response.json()
     if 'error' in decoded_response:
-        raise requests.exceptions.HTTPError(decoded_response['error'])
+        print('error!')
+        exit(1)
     return decoded_response
 
 
 def get_apods(api_key: str, amount: int):
     all_images = []
     apod_data = get_apod(api_key, amount)
-    while True:
-        for index in apod_data:
-            image = index["url"]
-            all_images.append(image)
-        if all_images != []:
-            break
-        sleep(10)
+    for index in apod_data:
+        image = index["url"]
+        all_images.append(image)
     return all_images
 
 

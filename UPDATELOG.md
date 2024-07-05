@@ -9,8 +9,13 @@
 
 # Update Log
 
+# `3.*`
+## `3.0.0` `Beta 2`
+- Added `webstream.py`
+
 # `2.*`
 ## `2.0.0` `Beta 1`
+- Removed `Installer.exe`.
 - `apod.py` and `epic.py` are now executable.
 
 # `1.*` `[Legacy]`
@@ -20,10 +25,6 @@
 - `convert.py` file in in development.
 ## `1.0.0` `Release`
 - Released the code!
-
-# Installer `1.2.*` for `2.*`+
-- Made an installer!
- - Uses Nullsoft Install System 3.10.
 
 ```
 Made by

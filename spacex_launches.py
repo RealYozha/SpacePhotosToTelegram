@@ -14,7 +14,7 @@ def fetch_launch(launch_id):
             raise requests.exceptions.HTTPError(decoded_response['error'])
     else:
         response = requests.get(
-            "https://api.spacexdata.com/v5/launches/{launch_id}"
+            f"https://api.spacexdata.com/v5/launches/{launch_id}"
         )
         response.raise_for_status()
         decoded_response = response.json()
@@ -33,7 +33,14 @@ if __name__ == '__main__':
         default=None
     )
     args = parser.parse_args()
-    launch_id = args.launch_id
-    filestream.get_filename_from_url(fetch_launch(launch_id)["links"]["flickr"][
+    launch_id = None
+    if args.launch_id:
+        launch_id = args.launch_id
+    filestream.get_filename_from_url(fetch_launch(launch_id)["links"][
+        "flickr"
+        ][
         "original"
-    ])
+        ][
+            0
+        ]
+    )
