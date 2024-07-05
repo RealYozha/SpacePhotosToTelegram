@@ -8,7 +8,7 @@
 ```
 
 # Space photos to Telegram
-> Readme for `2.0.0 Beta 1`
+> Readme for `3.0.0 Beta 2`
 
 English: lines 6-137;
 Русский: строки 139-275.
