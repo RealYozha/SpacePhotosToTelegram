@@ -43,13 +43,7 @@ if __name__ == '__main__':
         help="the api key",
         type=str
     )
-    parser.add_argument(
-        "--amount", "-count",
-        help="the amount of pictures to download",
-        type=int,
-        default=1
-    )
     args = parser.parse_args()
     api_key = args.api_key
     amount = args.amount
-    filestream.get_filename_from_url(get_epics(api_key, amount))
+    filestream.get_filename_from_url(get_epics(api_key))
