@@ -36,11 +36,5 @@ if __name__ == '__main__':
     launch_id = None
     if args.launch_id:
         launch_id = args.launch_id
-    filestream.get_filename_from_url(fetch_launch(launch_id)["links"][
-        "flickr"
-        ][
-        "original"
-        ][
-            0
-        ]
-    )
+    filestream.get_filename_from_url(fetch_launch(launch_id)
+                                     ["links"]["flickr"]["original"][0])
