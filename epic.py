@@ -30,7 +30,7 @@ def get_epics(api_key: str):
         for count in range(7):
             image = get_epic(api_key, count)
             all_images.append(image)
-        if all_images != []:
+        if all_images:
             break
         sleep(10)
     return all_images
