@@ -42,5 +42,5 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     api_key = args.api_key
-    amount = args.launch_id
+    amount = args.amount
     filestream.get_filename_from_url(get_apods(api_key, amount))
