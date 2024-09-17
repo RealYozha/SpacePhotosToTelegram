@@ -5,23 +5,16 @@ import requests
 
 def fetch_launch(launch_id):
     if not launch_id:
-        response = requests.get(
-            "https://api.spacexdata.com/v5/launches/latest"
-        )
-        response.raise_for_status()
-        decoded_response = response.json()
-        if 'error' in decoded_response:
-            raise requests.exceptions.HTTPError(decoded_response['error'])
-    else:
-        response = requests.get(
-            f"https://api.spacexdata.com/v5/launches/{launch_id}"
-        )
-        response.raise_for_status()
-        decoded_response = response.json()
-        if 'error' in decoded_response:
-            raise requests.exceptions.HTTPError(decoded_response['error'])
+        launch_id = "latest"
+    response = requests.get(
+        f"https://api.spacexdata.com/v5/launches/{launch_id}"
+    )
     response.raise_for_status()
-    return response.json()
+    decoded_response = response.json()
+    if 'error' in decoded_response:
+        raise requests.exceptions.HTTPError(decoded_response['error'])
+    response.raise_for_status()
+    return decoded_response
 
 
 if __name__ == '__main__':
