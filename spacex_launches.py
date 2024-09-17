@@ -11,8 +11,6 @@ def fetch_launch(launch_id):
     )
     response.raise_for_status()
     decoded_response = response.json()
-    if 'error' in decoded_response:
-        raise requests.exceptions.HTTPError(decoded_response['error'])
     response.raise_for_status()
     return decoded_response
 
@@ -22,13 +20,15 @@ if __name__ == '__main__':
     parser.add_argument(
         "--launch_id", "-id",
         help="the spaceX launch id",
-        type=int,
+        type=str,
         default=None
     )
     args = parser.parse_args()
-    launch_id = None
-    if args.launch_id:
-        launch_id = args.launch_id
+    launch_id = args.launch_id
     fetched_launch = fetch_launch(launch_id)
-    image = fetched_launch["links"]["flickr"]["original"][0]
-    filestream.get_filename_from_url(image)
+    if 'error' in fetched_launch:
+        raise requests.exceptions.HTTPError(decoded_response['error'])
+    images_list = []
+    for v in fetched_launch["links"]["flickr"]["original"]
+        filename = filestream.get_filename_from_url(v)
+        images_list.append(filename)
