@@ -4,8 +4,6 @@ import requests
 
 
 def fetch_launch(launch_id):
-    if not launch_id:
-        launch_id = "latest"
     response = requests.get(
         f"https://api.spacexdata.com/v5/launches/{launch_id}"
     )
@@ -20,7 +18,7 @@ if __name__ == '__main__':
         "--launch_id", "-id",
         help="the spaceX launch id",
         type=str,
-        default=None
+        default="latest" # i got forced to change it 3 times lol
     )
     args = parser.parse_args()
     launch_id = args.launch_id
