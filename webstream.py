@@ -1,5 +1,7 @@
 import requests
-from time import sleep as wait
+from time import sleep
+# this code is bad ik
+# yes i am selfaware
 
 
 def http_get(url: str,
@@ -9,7 +11,6 @@ def http_get(url: str,
              auth,
              max_attempts: int,
              tickrate: int):
-    # tickrate: int: 1/TimeBetweenRequestsInSeconds
     response = None
     for attempt in range(max_attempts):
         if not response:
@@ -20,4 +21,4 @@ def http_get(url: str,
                                     auth=auth)
         if response:
             return response
-        wait(1/tickrate)
+        sleep(1/tickrate) # zZ
