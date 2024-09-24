@@ -11,7 +11,6 @@ def fetch_launch(launch_id):
     )
     response.raise_for_status()
     decoded_response = response.json()
-    response.raise_for_status()
     return decoded_response
 
 
@@ -26,9 +25,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     launch_id = args.launch_id
     fetched_launch = fetch_launch(launch_id)
-    if 'error' in fetched_launch:
-        raise requests.exceptions.HTTPError(decoded_response['error'])
     images_list = []
-    for v in fetched_launch["links"]["flickr"]["original"]
+    for v in fetched_launch["links"]["flickr"]["original"]:
         filename = filestream.get_filename_from_url(v)
         images_list.append(filename)
