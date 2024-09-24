@@ -22,6 +22,6 @@ def download_image(url: str, file_path_and_ext: str):
                                   params=None,
                                   json=None,
                                   max_attempts=50,
-                                  tickrate=0.2)
+                                  tickrate=0.2) # no! don't you dare use your own bad code!
     with open(f"{file_path_and_ext}", "wb") as file:
         file.write(response.content)
