@@ -118,7 +118,7 @@ The file for Telegram Bot creations and operations.
 
 ### `Bot`
 A Telegram Bot instance.
-#### Initalization`(`self`, token: str)`
+#### Initialization`(`self`, token: str)`
 Setups the class instance.
 Parameters:
 - `token`: `str`; The Telegram Bot token.
