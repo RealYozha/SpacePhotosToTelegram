@@ -5,20 +5,25 @@ from time import sleep
 
 
 def http_get(url: str,
-             params,
-             json,
-             headers,
-             auth,
-             max_attempts: int,
+             params=None,
+             json=None,
+             headers=None,
+             auth=None,
+             max_attempts: int=1,
              tickrate: int):
-    response = None
-    for attempt in range(max_attempts):
+    if url:
+        response = None
+        for attempt in range(max_attempts):
+            if not response:
+                response = requests.get(url=url,
+                                        params=params,
+                                        json=json,
+                                        headers=headers,
+                                        auth=auth)
+            if response:
+                return response
+            sleep(1/tickrate) # zZ
         if not response:
-            response = requests.get(url=url,
-                                    params=params,
-                                    json=json,
-                                    headers=headers,
-                                    auth=auth)
-        if response:
-            return response
-        sleep(1/tickrate) # zZ
+            print(f"[ERROR] - Couldn't GET ({url})!")
+    else:
+        print("[ERROR] - No URL!")
