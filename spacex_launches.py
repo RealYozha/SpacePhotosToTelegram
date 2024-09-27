@@ -27,9 +27,9 @@ if __name__ == '__main__':
     launch_id = args.launch_id
     fetched_launch = fetch_launch(launch_id)
     images_list = []
-    for i, v in enumerate(fetched_launch["links"]["flickr"]["original"]):
+    for i, url in enumerate(fetched_launch["links"]["flickr"]["original"]):
         filename = filestream.get_filename_from_url(v)
         fileext = filestream.get_file_extension(v)
         file_path = f"{os.environ["IMAGES_DIRECTORY"]}/{i}" # selfaware here too
-        filestream.download_image() # i forgot to add this, thankfully was a pre-release lol
+        filestream.download_image(url, file_path) # i forgot to add this, thankfully was a pre-release lol
         images_list.append(filename)
