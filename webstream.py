@@ -10,7 +10,7 @@ def http_get(url: str,
              headers=None,
              auth=None,
              max_attempts: int=1,
-             tickrate: int):
+             tickrate: int=1):
     if url:
         response = None
         for attempt in range(max_attempts):
