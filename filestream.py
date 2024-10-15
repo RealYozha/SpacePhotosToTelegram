@@ -1,19 +1,29 @@
 import webstream
-from os import path
+import os
+import shutil
+from pathlib import Path
+from dotenv import load_dotenv
 from urllib import parse
+
+
+def remake_image_folder():
+    path = Path(os.environ["IMAGES_DIRECTORY"])
+    if path.exists():
+        shutil.rmtree(os.environ["IMAGES_DIRECTORY"])
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(parents=True, exist_ok=False)
 
 
 def get_file_extension(file_link: str):
     splitted_url = parse.urlsplit(file_link)
     url_path = splitted_url[2]
     unquoted_path = parse.unquote_plus(url_path)
-    extension = path.splitext(unquoted_path)[1]
+    extension = os.path.splitext(unquoted_path)[1]
     return extension
 
 
 def get_filename_from_url(url: str):
     parsed_url = parse.urlsplit(url)
-    filename = path.split(parsed_url.path)[1]
+    filename = os.path.split(parsed_url.path)[1]
     return filename
 
 
