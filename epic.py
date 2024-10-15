@@ -43,6 +43,10 @@ if __name__ == '__main__':
         help="the api key",
         type=str
     )
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
+        parents=True,
+        exist_ok=True
+    )
     args = parser.parse_args()
     api_key = args.api_key
     filestream.get_filename_from_url(get_epics(api_key))
