@@ -23,6 +23,10 @@ if __name__ == '__main__':
         type=str,
         default="latest" # i got forced to change it 3 times lol
     )
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
+        parents=True,
+        exist_ok=True
+    )
     args = parser.parse_args()
     launch_id = args.launch_id
     fetched_launch = fetch_launch(launch_id)
