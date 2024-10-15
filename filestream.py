@@ -10,7 +10,7 @@ def remake_image_folder():
     path = Path(os.environ["IMAGES_DIRECTORY"])
     if path.exists():
         shutil.rmtree(os.environ["IMAGES_DIRECTORY"])
-    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(parents=True, exist_ok=False)
+    path.mkdir(parents=True, exist_ok=False)
 
 
 def get_file_extension(file_link: str):
