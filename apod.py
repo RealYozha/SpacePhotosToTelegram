@@ -40,6 +40,10 @@ if __name__ == '__main__':
         type=int,
         default=1
     )
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
+        parents=True,
+        exist_ok=True
+    )
     args = parser.parse_args()
     api_key = args.api_key
     amount = args.amount
