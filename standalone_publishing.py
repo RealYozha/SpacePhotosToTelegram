@@ -1,6 +1,7 @@
 import os
 import argparse
-import telegram_shorthands
+from filestream import remake_image_directory
+from telegram_shorthands import Bot
 from time import sleep
 from random import shuffle
 
@@ -9,8 +10,8 @@ def is_enabled():
     return os.environ["STANDALONE_PUBLISHING_ENABLED"] == 1
 
 
-def run_standalone_bot(bot: telegram_shorthands.Bot, wait_mins: int) -> None:
-    wait_time = wait_mins / 60
+def run_standalone_bot(bot: Bot, wait_mins: int) -> None:
+    wait_secs = wait_mins / 60
     while True:
         if not is_enabled():
             break
@@ -19,8 +20,8 @@ def run_standalone_bot(bot: telegram_shorthands.Bot, wait_mins: int) -> None:
             if not is_enabled():
                 break
             bot.telegram_bot.send_document(image)
-            sleep(wait_time)
-        sleep(wait_time)
+            sleep(wait_secs)
+        sleep(wait_secs)
 
 
 if __name__ == '__main__':
@@ -36,8 +37,9 @@ if __name__ == '__main__':
     if args.tg_bot_token:
         bot = telegram_shorthands.Bot(args.tg_bot_token)
     else:
-        print("303A Telegram Bot Token Necessary")
-        print("Exited with error code 303A")
+        print("[ ERR! ] - Telegram Bot Token Necessary")
+        print("[ Exiting ] - Ending Script")
         exit()
+    remake_image_directory()
     run_standalone_bot(bot,
                        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"])
