@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from urllib import parse
 
 
-def remake_image_folder():
+def remake_image_directory():
     path = Path(os.environ["IMAGES_DIRECTORY"])
     if path.exists():
         shutil.rmtree(os.environ["IMAGES_DIRECTORY"])
