@@ -2,6 +2,7 @@ import argparse
 import filestream
 import webstream
 from pathlib import Path
+import os
 
 
 def get_apod(api_key: str, number: int):
