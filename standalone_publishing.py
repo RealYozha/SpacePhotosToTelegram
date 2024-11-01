@@ -1,6 +1,6 @@
 import os
 import argparse
-from filestream import remake_image_directory
+from filestream import remake_directory
 from telegram_shorthands import Bot
 from time import sleep
 from random import shuffle
@@ -10,16 +10,10 @@ def is_enabled():
     return os.environ["STANDALONE_PUBLISHING_ENABLED"] == 1
 
 
-def run_standalone_bot(bot: Bot, wait_mins: int) -> None:
+def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
     wait_secs = wait_mins / 60
     while True:
-        if not is_enabled():
-            print("[WARN] Standalone Publishing has been disabled. The script's going to close.")
-            sleep(2)
-            print("[EXIT] Ending Script.")
-            exit()
-            break
-        images = shuffle(os.walk(os.environ["IMAGES_DIRECTORY"])[2])
+        images = shuffle(os.walk(img_dir)[2])
         for image in images:
             if not is_enabled():
                 print("[WARN] Standalone Publishing has been disabled. The script's going to close.")
@@ -27,12 +21,13 @@ def run_standalone_bot(bot: Bot, wait_mins: int) -> None:
                 print("[EXIT] Ending Script.")
                 exit()
                 break
-            bot.publish_photo(os.environ["TELEGRAM_CHAT_ID"], image)
+            print("Posting image...")
+            bot.publish_photo(chat_id, image)
+            print("Posted!")
             sleep(wait_secs)
-        sleep(wait_secs)
 
 
-if __name__ == '__main__':
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--tg_bot_token", "-bot",
@@ -54,6 +49,12 @@ if __name__ == '__main__':
         sleep(2)
         print("[EXIT] Ending Script.")
         exit()
-    remake_image_directory()
+    remake_directory(os.environ["IMAGES_DIRECTORY"])
     run_standalone_bot(bot,
+                       os.environ["TELEGRAM_CHAT_ID"],
+                       os.environ["IMAGES_DIRECTORY"]
                        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"])
+
+
+if __name__ == '__main__':
+    main()
