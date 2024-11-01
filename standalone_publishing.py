@@ -13,8 +13,8 @@ def is_enabled():
 def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
     wait_secs = wait_mins / 60
     while True:
-        images = shuffle(os.walk(img_dir)[2])
-        for image in images:
+        img_dir = shuffle(os.walk(img_dir)[2])
+        for img_path in img_dir:
             if not is_enabled():
                 print("[WARN] Standalone Publishing has been disabled. The script's going to close.")
                 sleep(2)
@@ -22,7 +22,7 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
                 exit()
                 break
             print("Posting image...")
-            bot.publish_photo(chat_id, image)
+            bot.publish_photo(chat_id, img_dir, img_path)
             print("Posted!")
             sleep(wait_secs)
 
