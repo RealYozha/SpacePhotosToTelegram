@@ -48,7 +48,7 @@ if __name__ == '__main__':
         exit()
     bot = None
     if args.tg_bot_token:
-        bot = telegram_shorthands.Bot(args.tg_bot_token)
+        bot = Bot(args.tg_bot_token)
     else:
         print("[ERR!] Telegram Bot Token not provided. The script's going to close.")
         sleep(2)
