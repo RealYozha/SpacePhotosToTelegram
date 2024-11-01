@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 
 def main():
+    load_dotenv()
     all_images = Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
         parents=True,
         exist_ok=True
@@ -51,5 +52,4 @@ def main():
 
 
 if __name__ == "__main__":
-    load_dotenv()
     main()
