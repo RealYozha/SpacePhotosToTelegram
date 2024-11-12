@@ -52,7 +52,7 @@ def main() -> None:
     remake_directory(os.environ["IMAGES_DIRECTORY"])
     run_standalone_bot(bot,
                        os.environ["TELEGRAM_CHAT_ID"],
-                       os.environ["IMAGES_DIRECTORY"]
+                       os.environ["IMAGES_DIRECTORY"],
                        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"])
 
 
