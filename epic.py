@@ -28,13 +28,9 @@ def get_epic(api_key: str, number: int):
 
 def get_epics(api_key: str):
     all_images = []
-    while True:
-        for count in range(7):
-            image = get_epic(api_key, count)
-            all_images.append(image)
-        if all_images:
-            break
-        sleep(10)
+    for count in range(7):
+        image = get_epic(api_key, count)
+        all_images.append(image)
     return all_images
 
 
