@@ -9,15 +9,16 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-def main():
+if __name__ == "__main__":
     load_dotenv()
-    all_images = Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
+    all_images = Path(os.environ["IMAGES_DIRECTORY"])
+    all_images.mkdir(
         parents=True,
         exist_ok=True
     )
     filestream.download_image(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
-        "images/hubble_HST-SM4.jpeg",
+        all_images / "hubble_HST-SM4.jpeg",
     )
     spacex_launch_photos = spacex_launches.fetch_launch(None)["links"][
         "flickr"
@@ -49,7 +50,3 @@ def main():
     standalone_publishing.run_standalone_bot(
         telegram_bot, os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"]
     )
-
-
-if __name__ == "__main__":
-    main()

@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 
 
 def fetch_launch(launch_id):
+    if not launch_id:
+        launch_id = "latest"
     response = requests.get(
         f"https://api.spacexdata.com/v5/launches/{launch_id}"
     )

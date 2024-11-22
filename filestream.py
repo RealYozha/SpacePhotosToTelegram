@@ -28,6 +28,10 @@ def get_filename_from_url(url: str):
 
 
 def download_image(url: str, file_path_and_ext: str):
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
+        parents=True,
+        exist_ok=True
+    ) # make images directory if not present
     response = webstream.http_get(url=url,
                                   params=None,
                                   json=None,

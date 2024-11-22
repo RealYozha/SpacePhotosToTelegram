@@ -5,6 +5,7 @@ import convert
 from pathlib import Path
 import os
 from time import sleep
+from dotenv import load_dotenv
 
 
 def get_epic(api_key: str, number: int):
@@ -35,6 +36,7 @@ def get_epics(api_key: str):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--api_key", "-key",

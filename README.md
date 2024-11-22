@@ -8,7 +8,7 @@
 ```
 
 # Space photos to Telegram
-> Readme for `3.0.0 Beta 2`
+> Readme for `3.1.0-beta.1`
 
 English: lines 6-137;
 Русский: строки 139-275.
@@ -43,7 +43,7 @@ STANDALONE_PUBLISHING_ENABLED=(0 = NO, 1 = YES)
 The main file. Combines all of the modules.
 Running it will result in the program downloading photos from SpaceX, NASA: APOD and NASA: EPIC, running the standalone publishing script.
 ```bash
-.../SpaceToTelegram> main.py
+.../SpacePhotosToTelegram> main.py
 ```
 Final result:
 - Downloaded photos
@@ -53,7 +53,6 @@ Final result:
 
 ## `apod.py` and `epic.py`
 Downloads APOD / EPIC correspondingly.
-TODO: Explain what happens after you run the file
 
 ### `get_apod(api_key: str, number: int)` and `get_epic(api_key: str, number: int)`
 Gets a set amount of APODs / EPICs using the API, with no edits.
@@ -64,7 +63,7 @@ Returns:
 - `file_url`: `url`; The file URL.
 
 ### `get_apods(api_key: str, count: int)` and `get_epics(api_key: str)`
-Yields the current thread until got any response from [`get_apod()` or `get_epic()`](#get_apodapi_key-number-and-get_epicapi_key-number) with a tickrate of 6 requests per minute.
+Yields the current thread until got any response from `get_apod()` or `get_epic()` with a tickrate of 6 requests per minute.
 Parameters:
 - `api_key`: `str`; The API key.
 - `count`: `int`; The amount of pictures.

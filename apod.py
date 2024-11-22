@@ -3,6 +3,7 @@ import filestream
 import webstream
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 
 def get_apod(api_key: str, number: int):
@@ -30,6 +31,7 @@ def get_apods(api_key: str, amount: int):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--api_key", "-key",
