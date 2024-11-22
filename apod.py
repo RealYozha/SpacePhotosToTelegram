@@ -15,7 +15,7 @@ def get_apod(api_key: str, number: int):
     response.raise_for_status()
     decoded_response = response.json()
     if 'error' in decoded_response:
-        print('error!')
+        print('[0x21|ERR!] Error found in decoded apod response!')
         exit(1)
     return decoded_response
 
@@ -49,4 +49,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     api_key = args.api_key
     amount = args.amount
-    filestream.get_filename_from_url(get_apods(api_key, amount))
+    for i, url in enumerate(get_apods(api_key, amount)):
+        f_name = filestream.get_filename_from_url(url)
+        f_path = f"{os.environ["IMAGES_DIRECTORY"]}/0x21-apod-{i}" # selfawarity on 101%
+        filestream.download_image(url, f_path)

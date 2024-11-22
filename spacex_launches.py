@@ -12,6 +12,9 @@ def fetch_launch(launch_id):
     )
     response.raise_for_status()
     decoded_response = response.json()
+    if 'error' in decoded_response:
+        print('[0x20|ERR!] Error found in decoded spacex response!')
+        exit(1)
     return decoded_response
 
 
@@ -22,7 +25,7 @@ if __name__ == '__main__':
         "--launch_id", "-id",
         help="the spaceX launch id",
         type=str,
-        default="latest" # i got forced to change it 3 times lol
+        default="latest"
     )
     Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
         parents=True,
@@ -34,5 +37,5 @@ if __name__ == '__main__':
     for i, url in enumerate(fetched_launch["links"]["flickr"]["original"]):
         filename = filestream.get_filename_from_url(url)
         fileext = filestream.get_file_extension(url)
-        file_path = f"{os.environ["IMAGES_DIRECTORY"]}/{i}" # selfaware here too
+        file_path = f"{os.environ["IMAGES_DIRECTORY"]}/0x20-spacex-{i}" # selfaware here too
         filestream.download_image(url, file_path)
