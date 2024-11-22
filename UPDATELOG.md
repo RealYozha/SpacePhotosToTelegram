@@ -10,21 +10,17 @@
 # Update Log
 
 # `3.*`
-## `3.0.0` `Beta 2`
+## `3.1.0-beta.1`
+- A lot, and i mean a lot of bugfixes
+- Some functions rewritten or deleted
+- Overall functionality fixes
+
+## `3.0.0-beta.2`
 - Added `webstream.py`
 
 # `2.*`
-## `2.0.0` `Beta 1`
-- Removed `Installer.exe`.
+## `2.0.0-beta.3`
 - `apod.py` and `epic.py` are now executable.
-
-# `1.*` `[Legacy]`
-## `1.0.1` `Release`
-- Moved `1.*` versions to `legacy` branch as `1.*` versions will be deprecated soon.
-- Removed `filestream.create_directory()` and `filestream.destroy_directory()`.
-- `convert.py` file in in development.
-## `1.0.0` `Release`
-- Released the code!
 
 ```
 Made by
