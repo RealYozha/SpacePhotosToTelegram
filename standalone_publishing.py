@@ -1,13 +1,10 @@
 import os
 import argparse
-from filestream import remake_directory
+from fstream import remake_directory
 from telegram_shorthands import Bot
-from time import sleep
+import time
 from random import shuffle
-
-
-def is_enabled():
-    return os.environ["STANDALONE_PUBLISHING_ENABLED"] == 1
+from dotenv import load_dotenv
 
 
 def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
@@ -15,19 +12,16 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
     while True:
         img_dir = shuffle(os.walk(img_dir)[2])
         for img_path in img_dir:
-            if not is_enabled():
-                print("[WARN] Standalone Publishing has been disabled. The script's going to close.")
-                sleep(2)
-                print("[EXIT] Ending Script.")
-                exit()
-                break
-            print("Posting image...")
+            print("[StPub:Info] Posting image...")
+            start = time.time()
             bot.publish_photo(chat_id, img_dir, img_path)
-            print("Posted!")
-            sleep(wait_secs)
+            print(f"[StPub:Info] Posted in {time.time() - start}s!")
+            time.sleep(wait_secs)
 
 
-def main() -> None:
+
+if __name__ == '__main__':
+    load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--tg_bot_token", "-bot",
@@ -36,25 +30,17 @@ def main() -> None:
         default=1
     )
     args = parser.parse_args()
-    if not is_enabled():
-        print("[WARN] Standalone Publishing is disabled. Did you forget to enable it in the .env file? The script's going to close.")
-        sleep(2)
-        print("[EXIT] Ending Script.")
-        exit()
     bot = None
     if args.tg_bot_token:
         bot = Bot(args.tg_bot_token)
     else:
         print("[ERR!] Telegram Bot Token not provided. The script's going to close.")
-        sleep(2)
+        time.sleep(2)
         print("[EXIT] Ending Script.")
         exit()
     remake_directory(os.environ["IMAGES_DIRECTORY"])
+    print("[StPub:Info]! Use ^C to stop")
     run_standalone_bot(bot,
                        os.environ["TELEGRAM_CHAT_ID"],
                        os.environ["IMAGES_DIRECTORY"],
                        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"])
-
-
-if __name__ == '__main__':
-    main()

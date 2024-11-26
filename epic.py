@@ -1,5 +1,6 @@
+# SpacePhotosToTelegram/epic.py{0x22}
 import argparse
-import filestream
+import fstream
 import webstream
 import convert
 from pathlib import Path
@@ -8,22 +9,23 @@ from time import sleep
 from dotenv import load_dotenv
 
 
+def get_epic_url(x, i: int):
+    dd = str.split(x[i]["date"], " ")[0]
+    d = convert.change_splitter(dd, "-", "/")
+    n = x[i]["image"]
+    u = f"https://api.nasa.gov/EPIC/archive/natural/{d}/png/{n}.png"
+    return u
+
+
 def get_epic(api_key: str, number: int):
     query = {"api_key": api_key}
-    response = webstream.http_get("https://api.nasa.gov/EPIC/api/natural/images",
+    response = webstream.get_http("https://api.nasa.gov/EPIC/api/natural/images",
                                   params=query,
                                   json=None,
                                   max_attempts=50,
                                   tickrate=0.2)
-    response.raise_for_status()
     decoded_response = response.json()
-    if 'error' in decoded_response:
-        print('[0x22|ERR!] Error found in decoded epic response!')
-        exit(1)
-    date_with_dashes = str.split(decoded_response[number]["date"], " ")[0]
-    date = convert.change_splitter(date_with_dashes, "-", "/")
-    filename = decoded_response[number]["image"]
-    file_url = f"https://api.nasa.gov/EPIC/archive/natural/{date}/png/{filename}.png"
+    file_url = get_epic_url(decoded_response)
     return file_url
 
 
@@ -50,7 +52,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     api_key = args.api_key
     for i, url in enumerate(get_epics(api_key)):
-        f_name = filestream.get_filename_from_url(url)
+        f_name = fstream.get_filename_from_url(url)
         f_path = f"{os.environ["IMAGES_DIRECTORY"]}/0x22-epic-{i}" # selfawarity on 101%
-        filestream.download_image(url, f_path)
+        fstream.download_image(url, f_path)
 

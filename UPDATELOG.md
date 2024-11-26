@@ -10,6 +10,9 @@
 # Update Log
 
 # `3.*`
+## `3.1.0-beta.2`
+- Renamed `./spacex_launches.py` to `spacex.py`
+
 ## `3.1.0-beta.1`
 - A lot, and i mean a lot of bugfixes
 - Some functions rewritten or deleted

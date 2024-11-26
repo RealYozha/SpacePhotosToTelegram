@@ -1,5 +1,6 @@
+# SpacePhotosToTelegram/apod.py{0x21}
 import argparse
-import filestream
+import fstream
 import webstream
 from pathlib import Path
 import os
@@ -8,16 +9,12 @@ from dotenv import load_dotenv
 
 def get_apod(api_key: str, number: int):
     query = {"api_key": api_key, "count": number}
-    response = webstream.http_get(url="https://api.nasa.gov/planetary/apod",
+    response = webstream.get_http(url="https://api.nasa.gov/planetary/apod",
                                   params=query,
                                   json=None,
                                   max_attempts=50,
                                   tickrate=0.2)
-    response.raise_for_status()
     decoded_response = response.json()
-    if 'error' in decoded_response:
-        print('[0x21|ERR!] Error found in decoded apod response!')
-        exit(1)
     return decoded_response
 
 
@@ -52,6 +49,6 @@ if __name__ == '__main__':
     api_key = args.api_key
     amount = args.amount
     for i, url in enumerate(get_apods(api_key, amount)):
-        f_name = filestream.get_filename_from_url(url)
+        f_name = fstream.get_filename_from_url(url)
         f_path = f"{os.environ["IMAGES_DIRECTORY"]}/0x21-apod-{i}" # selfawarity on 101%
-        filestream.download_image(url, f_path)
+        fstream.download_image(url, f_path)
