@@ -15,7 +15,7 @@ English: lines 6-137;
 
 # English
 ## Installation
-Python3 should be already installed.
+Python3 should be already installed (tip: 3.12+ is recommended as 3.11 might break stuff).
 The installation consists of 3 parts (if you have Python3 and pip3).
 1. Downloading;
 2. Installing dependencies;
@@ -139,7 +139,7 @@ Parameters:
 
 # Русский
 ## Установка
-Python3 должен быть уже установлен.
+Python3 должен быть уже установлен (рекомендуемая версия - 3.12+).
 Установка состоит из 3-х частей (если у вас Python3 и pip3).
 1. Загрузка;
 2. Установка зависимостей;
