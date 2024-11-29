@@ -9,11 +9,13 @@ from dotenv import load_dotenv
 
 def get_apod(api_key: str, number: int):
     query = {"api_key": api_key, "count": number}
-    response = webstream.get_http(url="https://api.nasa.gov/planetary/apod",
-                                  params=query,
-                                  json=None,
-                                  max_attempts=50,
-                                  tickrate=0.2)
+    response = webstream.get_http(
+        url="https://api.nasa.gov/planetary/apod",
+        params=query,
+        json=None,
+        max_attempts=50,
+        tickrate=0.2,
+    )
     decoded_response = response.json()
     return decoded_response
 
@@ -27,28 +29,24 @@ def get_apods(api_key: str, amount: int):
     return all_images
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
+    parser.add_argument("--api_key", "-key", help="the api key", type=str)
     parser.add_argument(
-        "--api_key", "-key",
-        help="the api key",
-        type=str
-    )
-    parser.add_argument(
-        "--amount", "-count",
+        "--amount",
+        "-count",
         help="the amount of pictures to download",
         type=int,
-        default=1
+        default=1,
     )
-    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(
-        parents=True,
-        exist_ok=True
-    )
+    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(parents=True, exist_ok=True)
     args = parser.parse_args()
     api_key = args.api_key
     amount = args.amount
     for i, url in enumerate(get_apods(api_key, amount)):
         f_name = fstream.get_filename_from_url(url)
-        f_path = f"{os.environ["IMAGES_DIRECTORY"]}/0x21-apod-{i}" # selfawarity on 101%
+        f_path = (
+            f"{os.environ['IMAGES_DIRECTORY']}/0x21-apod-{i}"  # selfawarity on 101%
+        )
         fstream.download_image(url, f_path)

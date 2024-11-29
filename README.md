@@ -56,6 +56,7 @@ Downloads APOD / EPIC correspondingly.
 
 ### `get_apod(api_key: str, number: int)` and `get_epic(api_key: str, number: int)`
 Gets a set amount of APODs / EPICs using the API, with no edits.
+
 Parameters:
 - `api_key`: `str`; The API key.
 - `number`: `int`; The amount of pictures.
@@ -64,6 +65,7 @@ Returns:
 
 ### `get_apods(api_key: str, count: int)` and `get_epics(api_key: str)`
 Yields the current thread until got any response from `get_apod()` or `get_epic()` with a tickrate of 6 requests per minute.
+
 Parameters:
 - `api_key`: `str`; The API key.
 - `count`: `int`; The amount of pictures.
@@ -79,8 +81,9 @@ Parameters:
 ## `filestream.py`
 A library for required file operations.
 
-### `create_directory(path: str)` and `destroy_directory(path: str)`
-Creates/destroys a directory within the current path.
+### `remake_directory(path: str)`
+Destroys and then creates a directory within the current path which results in the images being flushed.
+
 Parameters:
 - `path`: `str`; The path. (*Example: ./New_Folder Name/123/*)
 
@@ -94,7 +97,7 @@ Gets the filename from a URL.
 Parameters:
 - `url`: `str`; The file URL. Can be a local path.
 
-### `download_image(url: str, file_path_and_ext: str)`
+### `download_image(url: str, file_path_and_ext: str, dir: str=ENV.IMAGES_DIRECTORY)`
 Yields the current thread until got any response from the required URL with a tickrate of 12 requests per minute and the max possible attempts being 100.
 Parameters:
 - `url`: `str`; The file URL.

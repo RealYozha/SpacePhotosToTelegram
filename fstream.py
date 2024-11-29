@@ -30,15 +30,12 @@ def get_filename_from_url(url: str):
     return filename
 
 
-def download_image(url: str, file_path_and_ext: str):
-    Path(ENVKEY_IMAGES_DIRECTORY).mkdir(
-        parents=True,
-        exist_ok=True
-    ) # make images directory if not present
-    response = webstream.get_http(url=url,
-                                  params=None,
-                                  json=None,
-                                  max_attempts=50,
-                                  tickrate=0.2) # no! don't you dare use your own bad code!
+def download_image(url: str, file_path_and_ext: str, dir: str=ENVKEY_IMAGES_DIRECTORY):
+    Path(dir).mkdir(
+        parents=True, exist_ok=True
+    )  # make images directory if not present
+    response = webstream.get_http(
+        url=url, params=None, json=None, max_attempts=50, tickrate=0.2
+    )
     with open(f"{file_path_and_ext}", "wb") as file:
         file.write(response.content)

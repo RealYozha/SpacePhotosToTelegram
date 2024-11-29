@@ -19,15 +19,15 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
             time.sleep(wait_secs)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--tg_bot_token", "-bot",
+        "--tg_bot_token",
+        "-bot",
         help="the amount of pictures to download",
         type=int,
-        default=1
+        default=1,
     )
     args = parser.parse_args()
     bot = None
@@ -40,7 +40,9 @@ if __name__ == '__main__':
         exit()
     remake_directory(os.environ["IMAGES_DIRECTORY"])
     print("[StPub:Info]! Use ^C to stop")
-    run_standalone_bot(bot,
-                       os.environ["TELEGRAM_CHAT_ID"],
-                       os.environ["IMAGES_DIRECTORY"],
-                       os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"])
+    run_standalone_bot(
+        bot,
+        os.environ["TELEGRAM_CHAT_ID"],
+        os.environ["IMAGES_DIRECTORY"],
+        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
+    )
