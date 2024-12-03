@@ -49,4 +49,4 @@ if __name__ == "__main__":
         f_path = (
             f"{os.environ['IMAGES_DIRECTORY']}/0x21-apod-{i}"  # selfawarity on 101%
         )
-        fstream.download_image(url, f_path)
+        fstream.download_image(url, f_path, os.environ["IMAGES_DIRECTORY"])

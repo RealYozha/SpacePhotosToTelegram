@@ -14,7 +14,7 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
         for img_path in img_dir:
             print("[StPub:Info] Posting image...")
             start = time.time()
-            bot.publish_photo(chat_id, img_dir, img_path)
+            bot.publish_photo(chat_id, img_path, img_dir)
             print(f"[StPub:Info] Posted in {time.time() - start}s!")
             time.sleep(wait_secs)
 

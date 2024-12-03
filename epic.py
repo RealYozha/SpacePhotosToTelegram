@@ -10,11 +10,10 @@ from dotenv import load_dotenv
 
 
 def get_epic_url(x, i: int):
-    dd = str.split(x[i]["date"], " ")[0]
-    d = convert.change_splitter(dd, "-", "/")
+    a = str.split(x[i]["date"]," ")[0]
+    d = convert.change_splitter(a,"-","/")
     n = x[i]["image"]
-    u = f"https://api.nasa.gov/EPIC/archive/natural/{d}/png/{n}.png"
-    return u
+    return f"https://api.nasa.gov/EPIC/archive/natural/{d}/png/{n}.png",
 
 
 def get_epic(api_key: str, number: int):
@@ -51,4 +50,4 @@ if __name__ == "__main__":
         f_path = (
             f"{os.environ['IMAGES_DIRECTORY']}/0x22-epic-{i}"  # selfawarity on 101%
         )
-        fstream.download_image(url, f_path)
+        fstream.download_image(url, f_path, os.environ["IMAGES_DIRECTORY"])

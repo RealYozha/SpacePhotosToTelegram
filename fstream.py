@@ -6,14 +6,11 @@ from dotenv import load_dotenv
 from urllib import parse
 
 
-ENVKEY_IMAGES_DIRECTORY = os.environ["IMAGES_DIRECTORY"]
-
-
-def remake_directory(dir: str):
-    path = Path(dir)
-    if path.exists():
-        shutil.rmtree(dir)
-    path.mkdir(parents=True, exist_ok=False)
+def remake_directory(idir: str):
+    xdir = Path(idir)
+    if xdir.exists():
+        shutil.rmtree(xdir)
+    xdir.mkdir(parents=True, exist_ok=False)
 
 
 def get_file_extension(file_link: str):
@@ -30,8 +27,8 @@ def get_filename_from_url(url: str):
     return filename
 
 
-def download_image(url: str, file_path_and_ext: str, dir: str=ENVKEY_IMAGES_DIRECTORY):
-    Path(dir).mkdir(
+def download_image(url: str, file_path_and_ext: str, img_dir: str):
+    Path(img_dir).mkdir(
         parents=True, exist_ok=True
     )  # make images directory if not present
     response = webstream.get_http(
