@@ -26,7 +26,7 @@ if __name__ == "__main__":
         "--tg_bot_token",
         "-bot",
         help="the amount of pictures to download",
-        type=int,
+        type=str,
         default=1,
     )
     args = parser.parse_args()
