@@ -32,7 +32,6 @@ Make sure to check `.env` and ensure you've set it up:
 ```env
 IMAGES_DIRECTORY=("./images" or any other directory)
 NASA_API_TOKEN=(Your https://api.nasa.gov/ API key)
-TELEGRAM_BOT_TOKEN=(Your https://t.me/BotFather token)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Interval time in minutes)
 STANDALONE_PUBLISHING_ENABLED=(0 = NO, 1 = YES)
 ```
@@ -159,7 +158,6 @@ pip install -r requirements.txt
 ```env
 IMAGES_DIRECTORY=("./images" или любая другая директория)
 NASA_API_TOKEN=(Ваш https://api.nasa.gov/ ключ API)
-TELEGRAM_BOT_TOKEN=(Ваш токен https://t.me/BotFather)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Время интервала в минутах)
 STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)
 ```
