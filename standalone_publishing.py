@@ -24,10 +24,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--tg_bot_token",
-        "-bot",
-        help="the amount of pictures to download",
+        "-token",
+        help="telegram bot token",
         type=str,
-        default=1,
     )
     args = parser.parse_args()
     bot = None
