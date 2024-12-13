@@ -8,10 +8,10 @@
 ```
 
 # Space photos to Telegram
-> Readme for `3.1.0-beta.1`
+> Readme for `3.1.0-beta.5`
 
-English: lines 6-137;
-Русский: строки 139-275.
+> - [English](#english)
+> - [Русский](#русский)
 
 # English
 ## Installation
@@ -132,7 +132,7 @@ Parameters:
 - `path`: `str`; The image path.
 
 ## `standalone_publishing.py`
-The standalone publishing script.
+The standalone publishing script
 
 ### `run_standalone_bot(bot: Bot, wait_mins: int)`
 Runs the standalone publishing bot.
