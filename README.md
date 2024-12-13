@@ -120,19 +120,19 @@ The file for Telegram Bot creations and operations.
 
 ### `Bot`
 A Telegram Bot instance.
-#### Initialization`(`self`, token: str)`
+#### `init(self, token: str)`
 Setups the class instance.
 Parameters:
 - `token`: `str`; The Telegram Bot token.
 
-#### `publish_photo(`self`, chat_id: str, path: str)`
+#### `publish_photo(self, chat_id: str, path: str)`
 Publishes the given photo in the given chat.
 Parameters:
 - `chat_id`: `str`; The chat ID. (*Example: "@MyChannel, aBcD123"*)
 - `path`: `str`; The image path.
 
 ## `standalone_publishing.py`
-The standalone publishing script
+The standalone publishing script.
 
 ### `run_standalone_bot(bot: Bot, wait_mins: int)`
 Runs the standalone publishing bot.
