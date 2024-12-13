@@ -28,8 +28,15 @@ if __name__ == "__main__":
         help="telegram bot token",
         type=str,
     )
+    parser.add_argument(
+        "--tg_chat_id",
+        "-chatid",
+        help="telegram chat id",
+        type=str,
+    )
     args = parser.parse_args()
     bot = None
+    chatid = None
     if args.tg_bot_token:
         bot = Bot(args.tg_bot_token)
     else:
@@ -37,11 +44,18 @@ if __name__ == "__main__":
         time.sleep(2)
         print("[EXIT] Ending Script.")
         exit()
+    if args.tg_chat_id:
+        chatid = Bot(args.tg_chat_id)
+    else:
+        print("[ERR!] Telegram Chaat Id not provided. The script's going to close.")
+        time.sleep(2)
+        print("[EXIT] Ending Script.")
+        exit()
     remake_directory(os.environ["IMAGES_DIRECTORY"])
-    print("[StPub:Info]! Use ^C to stop")
+    print("[StPub:Info] Use ^C (Ctrl+C) to stop.")
     run_standalone_bot(
         bot,
-        os.environ["TELEGRAM_CHAT_ID"],
+        chatid,
         os.environ["IMAGES_DIRECTORY"],
         os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
     )
