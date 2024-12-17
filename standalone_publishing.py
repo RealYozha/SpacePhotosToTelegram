@@ -8,14 +8,17 @@ from dotenv import load_dotenv
 
 
 def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
-    wait_secs = wait_mins / 60
+    wait_secs = wait_mins * 60
     while True:
         img_dir = shuffle(os.walk(img_dir)[2])
+        t = time.time()
         for img_path in img_dir:
             print("[StPub:Info] Posting image...")
             start = time.time()
             bot.publish_photo(chat_id, img_path, img_dir)
             print(f"[StPub:Info] Posted in {time.time() - start}s!")
+            print(f"[StPub:Info] Waited {time.time() - t}s to publish, waiting again...")
+            t = time.time()
             time.sleep(wait_secs)
 
 
@@ -45,9 +48,9 @@ if __name__ == "__main__":
         print("[EXIT] Ending Script.")
         exit()
     if args.tg_chat_id:
-        chatid = Bot(args.tg_chat_id)
+        chatid = args.tg_chat_id
     else:
-        print("[ERR!] Telegram Chaat Id not provided. The script's going to close.")
+        print("[ERR!] Telegram Chat Id not provided. The script's going to close.")
         time.sleep(2)
         print("[EXIT] Ending Script.")
         exit()
