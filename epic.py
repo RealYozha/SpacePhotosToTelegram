@@ -26,7 +26,7 @@ def get_epic(api_key: str, number: int):
         tickrate=0.2,
     )
     decoded_response = response.json()
-    file_url = get_epic_url(decoded_response)
+    file_url = get_epic_url(decoded_response, number)
     return file_url
 
 
