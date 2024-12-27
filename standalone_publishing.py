@@ -10,9 +10,13 @@ from dotenv import load_dotenv
 def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
     wait_secs = wait_mins * 60
     while True:
-        img_dir_new = shuffle(os.walk(img_dir))
+        all_paths = []
+        for root, dirs, files in os.walk(img_dir):
+            for name in files:
+                all_paths.append(os.path.join(root, name))
+        all_paths = shuffle(all_paths)
         t = time.time()
-        for img_path in img_dir_new:
+        for img_path in all_paths:
             print("[StPub:Info] Posting image...")
             start = time.time()
             bot.publish_photo(chat_id, img_path, img_dir)
