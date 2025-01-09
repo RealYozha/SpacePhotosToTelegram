@@ -21,7 +21,6 @@ def get_epic(api_key: str, number: int):
     response = webstream.get_http(
         "https://api.nasa.gov/EPIC/api/natural/images",
         params=query,
-        json=None,
         max_attempts=50,
         tickrate=0.2,
     )
@@ -42,12 +41,13 @@ if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
     parser.add_argument("--api_key", "-key", help="the api key", type=str)
-    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(parents=True, exist_ok=True)
+    img_dir = os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
+    Path(img_dir).mkdir(parents=True, exist_ok=True)
     args = parser.parse_args()
     api_key = args.api_key
     for i, url in enumerate(get_epics(api_key)):
         f_name = fstream.get_filename_from_url(url)
         f_path = (
-            f"{os.environ['IMAGES_DIRECTORY']}/0x22-epic-{i}"  # selfawarity on 101%
+            f"{img_dir}/0x22-epic-{i}"  # selfawarity on 101%
         )
-        fstream.download_image(url, f_path, os.environ["IMAGES_DIRECTORY"])
+        fstream.download_image(url, f_path, img_dir)
