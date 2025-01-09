@@ -34,6 +34,7 @@ if __name__ == "__main__":
         "-token",
         help="telegram bot token",
         type=str,
+        default=os.getenv("TG_BOT_TOKEN", default=None)
     )
     parser.add_argument(
         "--tg_chat_id",

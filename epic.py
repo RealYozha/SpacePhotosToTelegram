@@ -9,13 +9,6 @@ from time import sleep
 from dotenv import load_dotenv
 
 
-def get_epic_url(x, i: int):
-    a = str.split(x[i]["date"]," ")[0]
-    d = convert.change_splitter(a,"-","/")
-    n = x[i]["image"]
-    return f"https://api.nasa.gov/EPIC/archive/natural/{d}/png/{n}.png",
-
-
 def get_epic(api_key: str, number: int):
     query = {"api_key": api_key}
     response = webstream.get_http(
@@ -25,7 +18,7 @@ def get_epic(api_key: str, number: int):
         tickrate=0.2,
     )
     decoded_response = response.json()
-    file_url = get_epic_url(decoded_response, number)
+    file_url = convert.get_epic_url_v2(decoded_response, number)
     return file_url
 
 
@@ -40,11 +33,14 @@ def get_epics(api_key: str):
 if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
-    parser.add_argument("--api_key", "-key", help="the api key", type=str)
+    parser.add_argument("--api_key", "-key", help="the api key", type=str, default=os.getenv("NASA_API_TOKEN", default=None))
     img_dir = os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
     Path(img_dir).mkdir(parents=True, exist_ok=True)
     args = parser.parse_args()
     api_key = args.api_key
+    if not api_key:
+        print("[ERR!] No NASA api key passed")
+        exit()
     for i, url in enumerate(get_epics(api_key)):
         f_name = fstream.get_filename_from_url(url)
         f_path = (

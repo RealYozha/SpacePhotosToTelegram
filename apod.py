@@ -32,7 +32,7 @@ def get_apods(api_key: str, amount: int):
 if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
-    parser.add_argument("--api_key", "-key", help="the api key", type=str)
+    parser.add_argument("--api_key", "-key", help="the api key", type=str, default=os.getenv("NASA_API_TOKEN", default=None))
     parser.add_argument(
         "--amount",
         "-count",
