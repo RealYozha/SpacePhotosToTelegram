@@ -36,7 +36,7 @@ if __name__ == "__main__":
             fstream.download_image(
                 image, all_images / f"epic_{fstream.get_filename_from_url(image)}", os.environ["IMAGES_DIRECTORY"]
             )
-    telegram_bot = telegram_shorthands.Bot(os.environ["TELEGRAM_BOT_TOKEN"])
+    telegram_bot = telegram_shorthands.Bot(os.environ["TG_BOT_TOKEN"])
     standalone_publishing.run_standalone_bot(
         telegram_bot, os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"], os.environ["IMAGES_DIRECTORY"]
     )
