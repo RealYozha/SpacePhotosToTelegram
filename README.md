@@ -15,7 +15,7 @@
 
 # English
 ## Installation
-Python3 should be already installed (tip: 3.12+ is recommended as 3.11 might break stuff).
+Python3 should be already installed (tip: 3.12+ is recommended as <3.12 might break stuff).
 The installation consists of 3 parts (if you have Python3 and pip3).
 1. Downloading;
 2. Installing dependencies;
@@ -26,12 +26,13 @@ Use pip (or pip3, if there is a conflict with Python2) to install dependencies:
 pip install -r requirements.txt
 ```
 Then, rename the `.env.copy` file to `.env`.
-Go to <https://api.nasa.gov/> and get an API key. Paste it into the `.env` file on line 1, after you delete the placeholder.
-Go to <https://t.me/BotFather/> and get your bot's token. Paste it into the `.env` file on line 2, instead of the placeholder.
+Go to [NASA API](<https://api.nasa.gov/>) and get an API key. Paste it into the `.env` file on line 3, after you delete the placeholder.
+Go to [BotFather @ Telegram](<https://t.me/BotFather/>) and get your bot's token. Paste it into the `.env` file on line 2, instead of the placeholder.
 Make sure to check `.env` and ensure you've set it up:
 ```env
 IMAGES_DIRECTORY=("./images" or any other directory)
-NASA_API_TOKEN=(Your https://api.nasa.gov/ API key)
+TG_BOT_TOKEN=(Your BotFather @ Telegram token)
+NASA_API_TOKEN=(Your NASA API key)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Interval time in minutes)
 STANDALONE_PUBLISHING_ENABLED=(0 = NO, 1 = YES)
 ```
@@ -42,16 +43,26 @@ STANDALONE_PUBLISHING_ENABLED=(0 = NO, 1 = YES)
 The main file. Combines all of the modules.
 Running it will result in the program downloading photos from SpaceX, NASA: APOD and NASA: EPIC, running the standalone publishing script.
 ```bash
-.../SpacePhotosToTelegram> main.py
+.../SpacePhotosToTelegram> python main.py
+.../SpacePhotosToTelegram> <HTTP request data or any other debug data>
+.../SpacePhotosToTelegram> <completed>
 ```
 Final result:
 - Downloaded photos
-- Saved photos to .../SpaceToTelegram/images
+- Saved photos to .../SpaceToTelegram/SpaceImages (or your directory name in `.env`)
 - Connected to a Telegram bot
 - If the bot is in channels, automatically post photos every set amount of time.
 
 ## `apod.py` and `epic.py`
 Downloads APOD / EPIC correspondingly.
+```bash
+.../SpacePhotosToTelegram> python apod.py
+.../SpacePhotosToTelegram> <HTTP request data or any other debug data>
+.../SpacePhotosToTelegram> <downloaded images into imgdir>
+.../SpacePhotosToTelegram> python epic.py
+.../SpacePhotosToTelegram> <HTTP request data or any other debug data>
+.../SpacePhotosToTelegram> <downloaded images into imgdir>
+```
 
 ### `get_apod(api_key: str, number: int)` and `get_epic(api_key: str, number: int)`
 Gets a set amount of APODs / EPICs using the API, with no edits.
@@ -71,6 +82,11 @@ Parameters:
 
 ## `spacex_launches.py`
 Downloads SpaceX launches.
+```bash
+.../SpacePhotosToTelegram> python spacex.py -id 8080
+.../SpacePhotosToTelegram> <HTTP request data or any other debug data>
+.../SpacePhotosToTelegram> <completed>
+```
 
 ### `fetch_launch(id?: int or str)`
 Fetches the launch by ID or the latest launch.
@@ -108,7 +124,7 @@ Required for `epic.py` to work.
 
 ### `change_splitter(before: str, current_splitter: str, next_splitter: str)`
 Changes a symbol in a string to another symbol.
-*Example: change_splitter("file/name", "/", "_") -> "file_name"*
+*Example: change_splitter("file/name", "/", "_") --> "file_name"*
 Parameters:
 - `before`: `str`; The string.
 - `current_splitter`: `str`; The current splitter in the string.
@@ -119,7 +135,11 @@ The file for Telegram Bot creations and operations.
 
 ### `Bot`
 A Telegram Bot instance.
-#### `init(self, token: str)`
+```bash
+.../SpacePhotosToTelegram> <Creating object Bot with token X>
+.../SpacePhotosToTelegram> <RET << obj Bot with its functions>
+```
+#### `__init__(self, token: str)`
 Setups the class instance.
 Parameters:
 - `token`: `str`; The Telegram Bot token.
@@ -141,24 +161,25 @@ Parameters:
 
 # Русский
 ## Установка
-Python3 должен быть уже установлен (рекомендуемая версия - 3.12+).
-Установка состоит из 3-х частей (если у вас Python3 и pip3).
+Python3 уже должен быть установлен (совет: рекомендуется 3.12+, так как <3.12 может сломать что-то).
+Установка состоит из 3 частей (если у вас есть Python3 и pip3).
 1. Загрузка;
 2. Установка зависимостей;
-3. Получение API-ключей;
-Чтобы получить исходный код, просто скачайте код как ZIP с GitHub.
+3. Получение ключей API;
+Чтобы получить исходный код, просто загрузите его в виде ZIP-пакета с GitHub.
 Используйте pip (или pip3, если есть конфликт с Python2) для установки зависимостей:
 ```bash
 pip install -r requirements.txt
 ```
 Затем переименуйте файл `.env.copy` в `.env`.
-Перейдите на сайт <https://api.nasa.gov/> и получите ключ API. Вставьте его в файл `.env` в строке 1 после удаления заполнителя.
-Перейдите по адресу <https://t.me/BotFather/> и получите токен вашего бота. Вставьте его в файл `.env` в строке 2 вместо заполнителя.
-Обязательно проверьте `.env` и убедитесь, что вы его настроили:
+Перейдите в [NASA API](<https://api.nasa.gov/>) и получите ключ API. Вставьте его в файл `.env` в строке 3 после удаления заполнителя.
+Перейдите на [BotFather @ Telegram](<https://t.me/BotFather/>) и получите токен вашего бота. Вставьте его в файл `.env` на строке 2 вместо заполнителя.
+Не забудьте проверить `.env` и убедиться, что вы настроили его:
 ```env
-IMAGES_DIRECTORY=("./images" или любая другая директория)
-NASA_API_TOKEN=(Ваш https://api.nasa.gov/ ключ API)
-STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Время интервала в минутах)
+IMAGES_DIRECTORY=("./images" или любой другой каталог)
+TG_BOT_TOKEN=(Ваш токен BotFather @ Telegram)
+NASA_API_TOKEN=(Ваш ключ API NASA)
+STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Интервал времени в минутах)
 STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)
 ```
 
@@ -166,102 +187,131 @@ STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)
 
 ## `main.py`
 Основной файл. Объединяет все модули.
-Запуск приведет к тому, что программа загрузит фотографии из SpaceX, NASA: APOD и NASA: EPIC и запустит автономный сценарий публикации.
+Запуск приведет к загрузке программой фотографий из SpaceX, NASA: APOD и NASA: EPIC, запуску автономного скрипта публикации.
+
 ```bash
-.../SpaceToTelegram> main.py
+.../SpacePhotosToTelegram> python main.py
+.../SpacePhotosToTelegram> <данные HTTP-запроса или любые другие отладочные данные>
+.../SpacePhotosToTelegram> <завершено>
 ```
 Конечный результат:
 - Загруженные фотографии
-- Сохранены фотографии в .../SpaceToTelegram/images.
-- Подключен к Telegram-боту
-- Если бот есть в каналах, автоматически публикуйте фотографии через заданное время.
+- Сохраненные фотографии в .../SpaceToTelegram/SpaceImages (или в имя вашего каталога в `.env`)
+- Подключен к боту Telegram
+- Если бот находится в каналах, автоматически публикует фотографии через заданное время.
 
 ## `apod.py` и `epic.py`
-Загружает APOD/EPIC соответственно.
-TODO: Объяснить что произойдёт при запуске файла.
+Загружает APOD / EPIC соответственно.
+
+```bash
+.../SpacePhotosToTelegram> python apod.py
+.../SpacePhotosToTelegram> <данные HTTP-запроса или любые другие отладочные данные>
+.../SpacePhotosToTelegram> <загруженные изображения в imgdir>
+.../SpacePhotosToTelegram> python epic.py
+.../SpacePhotosToTelegram> <данные HTTP-запроса или любые другие отладочные данные>
+.../SpacePhotosToTelegram> <загруженные изображения в imgdir>
+```
 
 ### `get_apod(api_key: str, number: int)` и `get_epic(api_key: str, number: int)`
-Получает заданное количество APOD/EPIC с помощью API без каких-либо изменений.
+Получает заданное количество APOD/EPIC с помощью API, без редактирования.
+
 Параметры:
 - `api_key`: `str`; Ключ API.
-- `number`: `int`; Количество фотографий.
-Возврат:
+- `number`: `int`; Количество изображений.
+Возвращает:
 - `file_url`: `url`; URL-адрес файла.
 
 ### `get_apods(api_key: str, count: int)` и `get_epics(api_key: str)`
-Выдает текущий поток до тех пор, пока не будет получен ответ от [`get_apod()` или `get_epic()`](#get_apodapi_key-number-and-get_epicapi_key-number) с частотой тикрейта 6 запросов в минуту.
+Возвращает текущий поток, пока не будет получен ответ от `get_apod()` или `get_epic()` с частотой 6 запросов в минуту.
+
 Параметры:
 - `api_key`: `str`; Ключ API.
-- `count`: `int`; Количество фотографий.
+- `count`: `int`; Количество изображений.
 
 ## `spacex_launches.py`
-Загрузки Запуск SpaceX.
+Загрузки запусков SpaceX.
+
+```bash
+.../SpacePhotosToTelegram> python spacex.py -id 8080
+.../SpacePhotosToTelegram> <данные HTTP-запроса или любые другие отладочные данные>
+.../SpacePhotosToTelegram> <завершено>
+```
 
 ### `fetch_launch(id?: int или str)`
-Извлекает запуск по идентификатору или последний запуск.
+Выбирает запуск по идентификатору или последний запуск.
 Параметры:
 - `id`?: `int` или `str`; Идентификатор запуска.
 
 ## `filestream.py`
-Библиотека для необходимых файловых операций.
+Библиотека для необходимых операций с файлами.
 
-### `new_directory(path: str)` и `destroy_directory(path: str)`
-Создает/удаляет каталог внутри текущего пути.
+### `remake_directory(path: str)`
+Уничтожает и затем создает каталог в текущем пути, что приводит к очистке изображений.
+
 Параметры:
-- `путь`: `str`; Путь. (*Пример: ./Имя новой_папки/123/*)
+- `path`: `str`; Путь. (*Пример: ./New_Folder Name/123/*)
 
 ### `get_file_extension(file_link: str)`
 Получает расширение файла.
+
 Параметры:
-- `file_link`: `str`; Ссылка на файл. Это может быть URL-адрес или локальный путь.
+- `file_link`: `str`; Ссылка на файл. Может быть URL или локальным путем.
 
 ### `get_filename_from_url(url: str)`
-Получает имя файла из URL-адреса.
-Параметры:
-- `url`: `str`; URL-адрес файла. Может быть локальный путь.
+Получает имя файла из URL.
 
-### `download_image(url: str, file_path_and_ext: str)`
-Повторяет текущий поток до тех пор, пока не будет получен ответ от требуемого URL-адреса с частотой 12 запросов в минуту и максимальным возможным количеством попыток 100.
+Параметры:
+- `url`: `str`; URL файла. Может быть локальным путем.
+
+### `download_image(url: str, file_path_and_ext: str, dir: str=ENV.IMAGES_DIRECTORY)`
+Возвращает текущий поток, пока не будет получен ответ от требуемого URL с частотой 12 запросов в минуту и ​​максимально возможным количеством попыток 100.
 Параметры:
 - `url`: `str`; URL-адрес файла.
-- `file_path_and_ext`: `str`; Путь и имя файла, куда файл следует загрузить.
-  - Требуется расширение файла!
+- `file_path_and_ext`: `str`; Путь и имя файла, куда следует загрузить файл.
+- Требуется расширение файла!
 
 ## `convert.py`
 Требуется для работы `epic.py`.
 
 ### `change_splitter(before: str, current_splitter: str, next_splitter: str)`
-Изменяет символ в строке на другой символ.
-*Пример: change_splitter("имя/файла", "/", "_") -> "имя_файла"*
+Заменяет символ в строке на другой символ.
+
+*Пример: change_splitter("file/name", "/", "_") --> "file_name"*
 Параметры:
 - `before`: `str`; Строка.
 - `current_splitter`: `str`; Текущий разделитель в строке.
-- `next_splitter`: `str`; Новый сплиттер.
+- `next_splitter`: `str`; Новый символ разделителя.
 
 ## `telegram_shorthands.py`
 Файл для создания и работы бота Telegram.
 
 ### `Bot`
-Экземпляр Telegram-бота.
-#### Инициализация`(`self`, token: str)`
+Экземпляр бота Telegram.
+```bash
+.../SpacePhotosToTelegram> <Создание объекта Bot с токеном X>
+.../SpacePhotosToTelegram> <RET << obj Bot с его функциями>
+```
+#### `__init__(self, token: str)`
 Настраивает экземпляр класса.
 Параметры:
-- `token`: `str`; Токен Telegram-бота.
+- `token`: `str`; Токен бота Telegram.
 
-#### `publish_photo(`self`,chat_id: str, path: str)`
-Публикует данное фото в данном чате.
+#### `publish_photo(self, chat_id: str, path: str)`
+Публикует указанную фотографию в указанном чате.
+
 Параметры:
 - `chat_id`: `str`; Идентификатор чата. (*Пример: "@MyChannel, aBcD123"*)
-- `path`: `str`; Путь изображения.
+- `path`: `str`; Путь к изображению.
 
 ## `standalone_publishing.py`
-Автономная публикации.
+Автономный скрипт публикации.
 
 ### `run_standalone_bot(bot: Bot, wait_mins: int)`
 Запускает автономного бота публикации.
+
 Параметры:
 - `bot`: `telegram_shorthands.Bot`; Бот.
-- `wait_mins`: `int`; Количество времени ожидания.
+- `wait_mins`: `int`; Время ожидания.
 
 ```
 Made by
@@ -274,5 +324,5 @@ __/\\\________/\\\_______/\\\\\_______/\\\\\\\\\\\\\\\_____/\\\\\\\\\\\____/\\\\
       _______\/\\\________\///\\\__/\\\______/\\\/____________/\\\______\//\\\________\/\\\_______  
        _______\/\\\__________\///\\\\\/______/\\\\\\\\\\\\\\\_\///\\\\\\\\\\\/_________\/\\\_______ 
         _______\///_____________\/////_______\///////////////____\///////////___________\///________
-© YOZST™, 2024.
+© YOZST, 2024-2025.
 ```
