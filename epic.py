@@ -33,7 +33,13 @@ def get_epics(api_key: str):
 if __name__ == "__main__":
     load_dotenv()
     parser = argparse.ArgumentParser()
-    parser.add_argument("--api_key", "-key", help="the api key", type=str, default=os.getenv("NASA_API_TOKEN", default=None))
+    parser.add_argument(
+        "--api_key",
+        "-key",
+        help="the api key",
+        type=str,
+        default=os.getenv("NASA_API_TOKEN", default=None),
+    )
     img_dir = os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
     Path(img_dir).mkdir(parents=True, exist_ok=True)
     args = parser.parse_args()
@@ -43,7 +49,5 @@ if __name__ == "__main__":
         exit()
     for i, url in enumerate(get_epics(api_key)):
         f_name = fstream.get_filename_from_url(url)
-        f_path = (
-            f"{img_dir}/0x22-epic-{i}"  # selfawarity on 101%
-        )
+        f_path = f"{img_dir}/0x22-epic-{i}"  # selfawarity on 101%
         fstream.download_image(url, f_path, img_dir)

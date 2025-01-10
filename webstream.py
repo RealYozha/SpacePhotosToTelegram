@@ -13,8 +13,8 @@ def get_http(
     json=None,
     headers=None,
     auth=None,
-    max_attempts: int=1,
-    tickrate: int=1,
+    max_attempts: int = 1,
+    tickrate: int = 1,
 ):
     response = None
     for attempt in range(max_attempts):

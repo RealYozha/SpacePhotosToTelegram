@@ -15,28 +15,38 @@ if __name__ == "__main__":
     all_images.mkdir(parents=True, exist_ok=True)
     fstream.download_image(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
-        all_images / "hubble_HST-SM4.jpeg", os.environ["IMAGES_DIRECTORY"]
+        all_images / "hubble_HST-SM4.jpeg",
+        os.environ["IMAGES_DIRECTORY"],
     )
     spacex_launch = spacex.fetch_launch(None)["links"]["flickr"]["original"]
     if spacex_launch:
         for image in spacex_launch:
             fstream.download_image(
-                image, all_images / f"spx_{fstream.get_filename_from_url(image)}", os.environ["IMAGES_DIRECTORY"]
+                image,
+                all_images / f"spx_{fstream.get_filename_from_url(image)}",
+                os.environ["IMAGES_DIRECTORY"],
             )
     nasa_api_key = os.environ["NASA_API_TOKEN"]
     nasa_apod = apod.get_apods(nasa_api_key, 50)
     if nasa_apod:
         for image in nasa_apod:
             fstream.download_image(
-                image, all_images / f"apod_{fstream.get_filename_from_url(image)}", os.environ["IMAGES_DIRECTORY"]
+                image,
+                all_images / f"apod_{fstream.get_filename_from_url(image)}",
+                os.environ["IMAGES_DIRECTORY"],
             )
     nasa_epic = epic.get_epics(nasa_api_key)
     if nasa_epic:
         for image in nasa_epic:
             fstream.download_image(
-                image, all_images / f"epic_{fstream.get_filename_from_url(image)}", os.environ["IMAGES_DIRECTORY"]
+                image,
+                all_images / f"epic_{fstream.get_filename_from_url(image)}",
+                os.environ["IMAGES_DIRECTORY"],
             )
     telegram_bot = telegram_shorthands.Bot(os.environ["TG_BOT_TOKEN"])
     standalone_publishing.run_standalone_bot(
-        telegram_bot, os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"], os.environ["IMAGES_DIRECTORY"]
+        telegram_bot,
+        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
+        int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
+        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"),
     )

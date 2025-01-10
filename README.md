@@ -1,3 +1,5 @@
+# Space photos to Telegram
+
 ```txt
    _____                          ____  __          __                ______         ______     __                              
   / ___/____  ____ _________     / __ \/ /_  ____  / /_____  _____   /_  __/___     /_  __/__  / /__  ____ __________ _____ ___ 
@@ -7,21 +9,26 @@
     /_/                                                                                            /____/                       
 ```
 
-# Space photos to Telegram
 > Readme for `3.1.0-beta.5`
-
+>
+> ## Navigation
+>
 > - [English](#english)
 > - [Русский](#русский)
 
-# English
+## English
+
 ## Installation
+
 Python3 should be already installed (tip: 3.12+ is recommended as <3.12 might break stuff).
 The installation consists of 3 parts (if you have Python3 and pip3).
+
 1. Downloading;
 2. Installing dependencies;
 3. Getting API keys;
 To get the source, simply download it as a ZIP Package from GitHub.
 Use pip (or pip3, if there is a conflict with Python2) to install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -29,9 +36,11 @@ Then, rename the `.env.copy` file to `.env`.
 Go to [NASA API](<https://api.nasa.gov/>) and get an API key. Paste it into the `.env` file on line 3, after you delete the placeholder.
 Go to [BotFather @ Telegram](<https://t.me/BotFather/>) and get your bot's token. Paste it into the `.env` file on line 2, instead of the placeholder.
 Make sure to check `.env` and ensure you've set it up:
+
 ```env
 IMAGES_DIRECTORY=("./images" or any other directory)
 TG_BOT_TOKEN=(Your BotFather @ Telegram token)
+TG_CHAT_ID=(Your ChannelID @ Telegram)
 NASA_API_TOKEN=(Your NASA API key)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Interval time in minutes)
 STANDALONE_PUBLISHING_ENABLED=(0 = NO, 1 = YES)
@@ -117,7 +126,7 @@ Yields the current thread until got any response from the required URL with a ti
 Parameters:
 - `url`: `str`; The file URL.
 - `file_path_and_ext`: `str`; The path and filename where the file should be downloaded.
- - Requires the file's extension!
+- Requires the file's extension!
 
 ## `convert.py`
 Required for `epic.py` to work.
@@ -156,18 +165,23 @@ The standalone publishing script.
 ### `run_standalone_bot(bot: Bot, wait_mins: int)`
 Runs the standalone publishing bot.
 Parameters:
+
 - `bot`: `telegram_shorthands.Bot`; The bot.
 - `wait_mins`: `int`; The amount of time to wait.
 
-# Русский
+## Русский
+
 ## Установка
 Python3 уже должен быть установлен (совет: рекомендуется 3.12+, так как <3.12 может сломать что-то).
 Установка состоит из 3 частей (если у вас есть Python3 и pip3).
+
 1. Загрузка;
 2. Установка зависимостей;
 3. Получение ключей API;
+
 Чтобы получить исходный код, просто загрузите его в виде ZIP-пакета с GitHub.
 Используйте pip (или pip3, если есть конфликт с Python2) для установки зависимостей:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -177,7 +191,8 @@ pip install -r requirements.txt
 Не забудьте проверить `.env` и убедиться, что вы настроили его:
 ```env
 IMAGES_DIRECTORY=("./images" или любой другой каталог)
-TG_BOT_TOKEN=(Ваш токен BotFather @ Telegram)
+TG_BOT_TOKEN=(Ваш токен BotFather в Telegram)
+TG_CHAT_ID=(Ваш ID канала в Telegram)
 NASA_API_TOKEN=(Ваш ключ API NASA)
 STANDALONE_PUBLISHING_INTERVAL_MINUTES=(Интервал времени в минутах)
 STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)

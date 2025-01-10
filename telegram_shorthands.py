@@ -1,11 +1,12 @@
-import telegram
 import os
+from telegram import Bot as TGBot
 from random import shuffle
 
 
 class Bot:
     def __init__(self, token: str):
-        self.telegramlib_bot = telegram.Bot(token=token)
+        self.telegramlib_bot = TGBot(token=token)
+
 
     def publish_photo(self, chat_id: str, img_path: str, img_dir: str):
         if not path:

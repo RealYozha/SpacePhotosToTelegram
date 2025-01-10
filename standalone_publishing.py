@@ -1,8 +1,8 @@
 import os
 import argparse
+import time
 from fstream import remake_directory
 from telegram_shorthands import Bot
-import time
 from random import shuffle
 from dotenv import load_dotenv
 
@@ -16,7 +16,9 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
                 all_paths.append(os.path.join(root, name))
         all_paths = shuffle(all_paths)
         if not all_paths:
-            print("[ERR!] No images found in provided directory. The script's going to close.")
+            print(
+                "[ERR!] No images found in provided directory. The script's going to close."
+            )
             print("[EXIT] Ending Script.")
             exit()
         t = time.time()
@@ -25,7 +27,9 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
             start = time.time()
             bot.publish_photo(chat_id, img_path, img_dir)
             print(f"[StPub:Info] Posted in {time.time() - start}s!")
-            print(f"[StPub:Info] Waited {time.time() - t}s to publish, waiting again...")
+            print(
+                f"[StPub:Info] Waited {time.time() - t}s to publish, waiting again..."
+            )
             t = time.time()
             time.sleep(wait_secs)
 
@@ -38,7 +42,7 @@ if __name__ == "__main__":
         "-token",
         help="telegram bot token",
         type=str,
-        default=os.getenv("TG_BOT_TOKEN", default=None)
+        default=os.getenv("TG_BOT_TOKEN", default=None),
     )
     parser.add_argument(
         "--tg_chat_id",
@@ -68,6 +72,6 @@ if __name__ == "__main__":
     run_standalone_bot(
         bot,
         chatid,
-        os.getenv("IMAGES_DIRECTORY", def),
-        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
+        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"),
+        int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )
