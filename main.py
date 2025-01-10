@@ -46,7 +46,7 @@ if __name__ == "__main__":
     telegram_bot = telegram_shorthands.Bot(os.environ["TG_BOT_TOKEN"])
     standalone_publishing.run_standalone_bot(
         telegram_bot,
-        os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
-        int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
+        os.environ["TG_CHAT_ID"],
         os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"),
+        int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )
