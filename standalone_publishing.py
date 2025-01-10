@@ -15,6 +15,10 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
             for name in files:
                 all_paths.append(os.path.join(root, name))
         all_paths = shuffle(all_paths)
+        if not all_paths:
+            print("[ERR!] No images found in provided directory. The script's going to close.")
+            print("[EXIT] Ending Script.")
+            exit()
         t = time.time()
         for img_path in all_paths:
             print("[StPub:Info] Posting image...")
@@ -64,6 +68,6 @@ if __name__ == "__main__":
     run_standalone_bot(
         bot,
         chatid,
-        os.environ["IMAGES_DIRECTORY"],
+        os.getenv("IMAGES_DIRECTORY", def),
         os.environ["STANDALONE_PUBLISHING_INTERVAL_MINUTES"],
     )
