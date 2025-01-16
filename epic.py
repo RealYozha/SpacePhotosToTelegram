@@ -3,9 +3,7 @@ import argparse
 import fstream
 import webstream
 import convert
-from pathlib import Path
 import os
-from time import sleep
 from dotenv import load_dotenv
 
 
@@ -40,8 +38,7 @@ if __name__ == "__main__":
         type=str,
         default=os.getenv("NASA_API_TOKEN", default=None),
     )
-    img_dir = os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
-    Path(img_dir).mkdir(parents=True, exist_ok=True)
+    img_dir = fstream.img_directory()
     args = parser.parse_args()
     api_key = args.api_key
     if not api_key:

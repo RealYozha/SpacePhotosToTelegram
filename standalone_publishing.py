@@ -1,7 +1,7 @@
 import os
 import argparse
 import time
-from fstream import remake_directory
+from fstream import img_directory
 from telegram_shorthands import Bot
 from random import shuffle
 from dotenv import load_dotenv
@@ -11,7 +11,7 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> 
     wait_secs = wait_mins * 60
     while True:
         all_paths = []
-        for root, dirs, files in os.walk(img_dir):
+        for root, _, files in os.walk(img_dir):
             for name in files:
                 all_paths.append(os.path.join(root, name))
         all_paths = shuffle(all_paths)
@@ -51,6 +51,7 @@ if __name__ == "__main__":
         type=str,
     )
     args = parser.parse_args()
+    img_dir = img_directory()
     bot = None
     chatid = None
     if args.tg_bot_token:
@@ -67,11 +68,10 @@ if __name__ == "__main__":
         time.sleep(2)
         print("[EXIT] Ending Script.")
         exit()
-    remake_directory(os.environ["IMAGES_DIRECTORY"])
     print("[StPub:Info] Use ^C (Ctrl+C) to stop.")
     run_standalone_bot(
         bot,
         chatid,
-        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"),
+        img_dir,
         int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )

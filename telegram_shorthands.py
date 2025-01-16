@@ -7,7 +7,6 @@ class Bot:
     def __init__(self, token: str):
         self.telegramlib_bot = TGBot(token=token)
 
-
     def publish_photo(self, chat_id: str, img_path: str, img_dir: str):
         if not path:
             path = shuffle(os.walk(img_dir)[2])[0]

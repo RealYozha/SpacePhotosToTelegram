@@ -2,7 +2,6 @@
 import argparse
 import fstream
 import webstream
-from pathlib import Path
 import os
 from dotenv import load_dotenv
 
@@ -46,13 +45,11 @@ if __name__ == "__main__":
         type=int,
         default=1,
     )
-    Path(os.environ["IMAGES_DIRECTORY"]).mkdir(parents=True, exist_ok=True)
+    img_dir = fstream.img_directory()
     args = parser.parse_args()
     api_key = args.api_key
     amount = args.amount
     for i, url in enumerate(get_apods(api_key, amount)):
         f_name = fstream.get_filename_from_url(url)
-        f_path = (
-            f"{os.environ['IMAGES_DIRECTORY']}/0x21-apod-{i}"  # selfawarity on 101%
-        )
-        fstream.download_image(url, f_path, os.environ["IMAGES_DIRECTORY"])
+        f_path = f"{img_dir}/0x21-apod-{i}"  # selfawarity on 101%
+        fstream.download_image(url, f_path, img_dir)

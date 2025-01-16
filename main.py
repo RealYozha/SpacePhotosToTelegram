@@ -11,12 +11,11 @@ from dotenv import load_dotenv
 
 if __name__ == "__main__":
     load_dotenv()
-    all_images = Path(os.environ["IMAGES_DIRECTORY"])
-    all_images.mkdir(parents=True, exist_ok=True)
+    all_images = Path(fstream.img_directory())
     fstream.download_image(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
         all_images / "hubble_HST-SM4.jpeg",
-        os.environ["IMAGES_DIRECTORY"],
+        all_images,
     )
     spacex_launch = spacex.fetch_launch(None)["links"]["flickr"]["original"]
     if spacex_launch:
@@ -24,7 +23,7 @@ if __name__ == "__main__":
             fstream.download_image(
                 image,
                 all_images / f"spx_{fstream.get_filename_from_url(image)}",
-                os.environ["IMAGES_DIRECTORY"],
+                all_images,
             )
     nasa_api_key = os.environ["NASA_API_TOKEN"]
     nasa_apod = apod.get_apods(nasa_api_key, 50)
@@ -33,7 +32,7 @@ if __name__ == "__main__":
             fstream.download_image(
                 image,
                 all_images / f"apod_{fstream.get_filename_from_url(image)}",
-                os.environ["IMAGES_DIRECTORY"],
+                all_images,
             )
     nasa_epic = epic.get_epics(nasa_api_key)
     if nasa_epic:
@@ -41,12 +40,12 @@ if __name__ == "__main__":
             fstream.download_image(
                 image,
                 all_images / f"epic_{fstream.get_filename_from_url(image)}",
-                os.environ["IMAGES_DIRECTORY"],
+                all_images,
             )
     telegram_bot = telegram_shorthands.Bot(os.environ["TG_BOT_TOKEN"])
     standalone_publishing.run_standalone_bot(
         telegram_bot,
         os.environ["TG_CHAT_ID"],
-        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"),
+        all_images,
         int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )

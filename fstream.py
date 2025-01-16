@@ -6,6 +6,16 @@ from dotenv import load_dotenv
 from urllib import parse as urlparse
 
 
+IMAGES_ENV = "IMAGES_DIRECTORY"
+
+
+def img_directory():
+    load_dotenv()
+    img_dir = os.getenv(IMAGES_ENV, default="./SpaceImages")
+    Path(img_dir).mkdir(parents=True, exist_ok=True)
+    return img_dir
+
+
 def remake_directory(_dir: str):
     ndir = Path(_dir)
     if ndir.exists():
