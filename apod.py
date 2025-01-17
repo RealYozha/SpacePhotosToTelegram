@@ -48,8 +48,15 @@ if __name__ == "__main__":
     img_dir = fstream.img_directory()
     args = parser.parse_args()
     api_key = args.api_key
+    if not api_key:
+        print("[ERR!] No NASA api key passed")
+        exit()
     amount = args.amount
+    if not amount:
+        print("[ERR!] No amount given!")
+        exit()
     for i, url in enumerate(get_apods(api_key, amount)):
+        newurl = f"{url}?api_key={api_key}"
         f_name = fstream.get_filename_from_url(url)
         f_path = f"{img_dir}/0x21-apod-{i}"  # selfawarity on 101%
-        fstream.download_image(url, f_path, img_dir)
+        fstream.download_image(newurl, f_path)

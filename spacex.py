@@ -26,4 +26,4 @@ if __name__ == "__main__":
         filename = fstream.get_filename_from_url(url)
         fileext = fstream.get_file_extension(url)
         file_path = f"{img_dir}/0x20-spacex-{i}"  # P.S. if you're on Python <3.12 anything < v3.1.0-beta.2 won't work
-        fstream.download_image(url, file_path, img_dir)
+        fstream.download_image(url, file_path)

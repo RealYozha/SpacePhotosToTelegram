@@ -37,12 +37,11 @@ def get_filename_from_url(url: str):
     return filename
 
 
-def download_image(url: str, file_path_and_ext: str, img_dir: str):
-    Path(img_dir).mkdir(
-        parents=True, exist_ok=True
-    )  # make images directory if not present
+def download_image(url: str, file_path_and_ext: str):
+    img_directory()
     response = webstream.get_http(
         url=url, params=None, json=None, max_attempts=50, tickrate=0.2
     )
+    print(f"[File:Info] Downloading {url} to {file_path_and_ext}")
     with open(f"{file_path_and_ext}", "wb") as file:
         file.write(response.content)

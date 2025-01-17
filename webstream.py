@@ -16,7 +16,7 @@ def get_http(
 ):
     response = None
     for attempt in range(max_attempts):
-        print(f"[Web:Info] HTTP GET {url} (attempt {attempt})")
+        print(f"[Web:Info] HTTP GET {url} (attempt {attempt + 1})")
         if not response:
             response = requests.get(
                 url=url, params=params, json=json, headers=headers, auth=auth

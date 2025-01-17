@@ -7,23 +7,27 @@ import os
 from dotenv import load_dotenv
 
 
-def get_epic(api_key: str, number: int):
+def get_epic_data(api_key: str):
     query = {"api_key": api_key}
     response = webstream.get_http(
         "https://api.nasa.gov/EPIC/api/natural/images",
         params=query,
         max_attempts=50,
-        tickrate=0.2,
+        tickrate=1,
     )
-    decoded_response = response.json()
-    file_url = convert.get_epic_url_v2(decoded_response, number)
+    return response.json()
+
+
+def get_epic(data, number: int):
+    file_url = convert.get_epic_url_v4(data, number)
     return file_url
 
 
 def get_epics(api_key: str):
+    data = get_epic_data(api_key)
     all_images = []
     for count in range(7):
-        image = get_epic(api_key, count)
+        image = get_epic(data, count)
         all_images.append(image)
     return all_images
 
@@ -45,6 +49,7 @@ if __name__ == "__main__":
         print("[ERR!] No NASA api key passed")
         exit()
     for i, url in enumerate(get_epics(api_key)):
+        newurl = f"{url}?api_key={api_key}"
         f_name = fstream.get_filename_from_url(url)
         f_path = f"{img_dir}/0x22-epic-{i}"  # selfawarity on 101%
-        fstream.download_image(url, f_path, img_dir)
+        fstream.download_image(newurl, f_path)

@@ -1,9 +1,9 @@
-def change_splitter(istr: str, curr: str, next: str):
-    return next.join(str.split(istr, curr))
+import datetime
 
 
-def get_epic_url_v2(_, i: int):
-    a = str.split(_[i]["date"], " ")[0]
-    b = change_splitter(a, "-", "/")
-    c = _[i]["image"]
-    return f"https://api.nasa.gov/EPIC/archive/natural/{b}/png/{c}.png"
+def get_epic_url_v4(data, number: int):
+    imgdata = data[number]
+    datetimeobj = datetime.datetime.strptime(imgdata["date"], "%Y-%m-%d %H:%M:%S")
+    date = datetimeobj.strftime("%Y/%m/%d")
+    img = imgdata["image"]
+    return f"https://api.nasa.gov/EPIC/archive/natural/{date}/png/{img}.png"
