@@ -45,7 +45,9 @@ if __name__ == "__main__":
         type=int,
         default=1,
     )
-    img_dir = fstream.img_directory()
+    img_dir = fstream.get_img_directory(
+        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
+    )
     args = parser.parse_args()
     api_key = args.api_key
     if not api_key:
@@ -56,7 +58,6 @@ if __name__ == "__main__":
         print("[ERR!] No amount given!")
         exit()
     for i, url in enumerate(get_apods(api_key, amount)):
-        newurl = f"{url}?api_key={api_key}"
         f_name = fstream.get_filename_from_url(url)
-        f_path = f"{img_dir}/0x21-apod-{i}"  # selfawarity on 101%
-        fstream.download_image(newurl, f_path)
+        f_path = img_dir / f"0x21-apod-{i}"
+        fstream.download_image(url, f_path, {"api_key": api_key})

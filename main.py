@@ -11,7 +11,9 @@ from dotenv import load_dotenv
 
 if __name__ == "__main__":
     load_dotenv()
-    all_images = Path(fstream.img_directory())
+    all_images = fstream.get_img_directory(
+        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
+    )
     fstream.download_image(
         "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg",
         all_images / "hubble_HST-SM4.jpeg",

@@ -1,36 +1,23 @@
+import standalone_utils as utils
 import os
 import argparse
 import time
-from fstream import img_directory
+from fstream import get_img_directory
 from telegram_shorthands import Bot
-from random import shuffle
 from dotenv import load_dotenv
 
 
-def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, wait_mins: int) -> None:
+def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, all_paths: list[str], wait_mins: int) -> None:
     wait_secs = wait_mins * 60
+    # paths check
+    if not all_paths:
+        print("[ERR!] No images found in provided directory. The script's going to close.")
+        print("[EXIT] Ending Script.")
+        exit()
+    # standalone bot
     while True:
-        all_paths = []
-        for root, _, files in os.walk(img_dir):
-            for name in files:
-                all_paths.append(os.path.join(root, name))
-        all_paths = shuffle(all_paths)
-        if not all_paths:
-            print(
-                "[ERR!] No images found in provided directory. The script's going to close."
-            )
-            print("[EXIT] Ending Script.")
-            exit()
-        t = time.time()
-        for img_path in all_paths:
-            print("[StPub:Info] Posting image...")
-            start = time.time()
-            bot.publish_photo(chat_id, img_path, img_dir)
-            print(f"[StPub:Info] Posted in {time.time() - start}s!")
-            print(
-                f"[StPub:Info] Waited {time.time() - t}s to publish, waiting again..."
-            )
-            t = time.time()
+        for path in all_paths:
+            utils.post_image(bot, chat_id, img_dir, path)
             time.sleep(wait_secs)
 
 
@@ -51,7 +38,7 @@ if __name__ == "__main__":
         type=str,
     )
     args = parser.parse_args()
-    img_dir = img_directory()
+    img_dir = get_img_directory(os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"))
     bot = None
     chatid = None
     if args.tg_bot_token:
@@ -73,5 +60,6 @@ if __name__ == "__main__":
         bot,
         chatid,
         img_dir,
+        utils.get_img_paths(),
         int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )

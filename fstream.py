@@ -6,21 +6,10 @@ from dotenv import load_dotenv
 from urllib import parse as urlparse
 
 
-IMAGES_ENV = "IMAGES_DIRECTORY"
-
-
-def img_directory():
-    load_dotenv()
-    img_dir = os.getenv(IMAGES_ENV, default="./SpaceImages")
-    Path(img_dir).mkdir(parents=True, exist_ok=True)
-    return img_dir
-
-
-def remake_directory(_dir: str):
-    ndir = Path(_dir)
-    if ndir.exists():
-        rmtree(ndir)
-    ndir.mkdir(parents=True, exist_ok=False)
+def get_img_directory(img_dir: str = "./SpaceImages"):
+    path_img_dir = Path(img_dir)
+    path_img_dir.mkdir(parents=True, exist_ok=True)
+    return path_img_dir
 
 
 def get_file_extension(file_link: str):
@@ -37,10 +26,10 @@ def get_filename_from_url(url: str):
     return filename
 
 
-def download_image(url: str, file_path_and_ext: str):
-    img_directory()
+def download_image(url: str, file_path_and_ext: str, query: dict = None):
+    get_img_directory()
     response = webstream.get_http(
-        url=url, params=None, json=None, max_attempts=50, tickrate=0.2
+        url=url, params=query, json=None, max_attempts=50, tickrate=0.2
     )
     print(f"[File:Info] Downloading {url} to {file_path_and_ext}")
     with open(f"{file_path_and_ext}", "wb") as file:

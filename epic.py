@@ -42,14 +42,15 @@ if __name__ == "__main__":
         type=str,
         default=os.getenv("NASA_API_TOKEN", default=None),
     )
-    img_dir = fstream.img_directory()
+    img_dir = fstream.get_img_directory(
+        os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
+    )
     args = parser.parse_args()
     api_key = args.api_key
     if not api_key:
         print("[ERR!] No NASA api key passed")
         exit()
     for i, url in enumerate(get_epics(api_key)):
-        newurl = f"{url}?api_key={api_key}"
         f_name = fstream.get_filename_from_url(url)
-        f_path = f"{img_dir}/0x22-epic-{i}"  # selfawarity on 101%
-        fstream.download_image(newurl, f_path)
+        f_path = img_dir / f"0x22-epic-{i}"
+        fstream.download_image(url, f_path, {"api_key": api_key})

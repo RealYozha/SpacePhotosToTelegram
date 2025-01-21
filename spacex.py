@@ -2,6 +2,7 @@
 import argparse
 import fstream
 import webstream
+from os import getenv
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -18,12 +19,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "--launch_id", "-id", help="the spaceX launch id", type=str, default="latest"
     )
-    img_dir = fstream.img_directory()
+    img_dir = fstream.get_img_directory(
+        getenv("IMAGES_DIRECTORY", default="./SpaceImages")
+    )
     args = parser.parse_args()
     launch_id = args.launch_id
     fetched_launch = fetch_launch(launch_id)
     for i, url in enumerate(fetched_launch["links"]["flickr"]["original"]):
         filename = fstream.get_filename_from_url(url)
         fileext = fstream.get_file_extension(url)
-        file_path = f"{img_dir}/0x20-spacex-{i}"  # P.S. if you're on Python <3.12 anything < v3.1.0-beta.2 won't work
+        file_path = img_dir / f"0x20-spacex-{i}"
         fstream.download_image(url, file_path)

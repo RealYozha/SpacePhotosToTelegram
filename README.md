@@ -105,9 +105,6 @@ Parameters:
 ## `filestream.py`
 A library for required file operations.
 
-### `remake_directory(path: str)`
-Destroys and then creates a directory within the current path which results in the images being flushed.
-
 Parameters:
 - `path`: `str`; The path. (*Example: ./New_Folder Name/123/*)
 
@@ -259,9 +256,6 @@ STANDALONE_PUBLISHING_ENABLED=(0 = НЕТ, 1 = ДА)
 
 ## `filestream.py`
 Библиотека для необходимых операций с файлами.
-
-### `remake_directory(path: str)`
-Уничтожает и затем создает каталог в текущем пути, что приводит к очистке изображений.
 
 Параметры:
 - `path`: `str`; Путь. (*Пример: ./New_Folder Name/123/*)
