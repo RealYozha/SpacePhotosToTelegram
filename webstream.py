@@ -25,5 +25,3 @@ def get_http(
         if response:
             response.raise_for_status()
             return response
-    if not response:
-        print(f"[ERROR] Couldn't HTTP GET ({url})!")

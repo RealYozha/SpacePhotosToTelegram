@@ -3,7 +3,6 @@ import argparse
 import fstream
 import webstream
 from os import getenv
-from pathlib import Path
 from dotenv import load_dotenv
 
 
@@ -19,7 +18,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--launch_id", "-id", help="the spaceX launch id", type=str, default="latest"
     )
-    img_dir = fstream.get_img_directory(
+    img_dir = fstream.create_img_dir(
         getenv("IMAGES_DIRECTORY", default="./SpaceImages")
     )
     args = parser.parse_args()

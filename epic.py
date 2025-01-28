@@ -2,7 +2,7 @@
 import argparse
 import fstream
 import webstream
-import convert
+import epic_utils as utils
 import os
 from dotenv import load_dotenv
 
@@ -18,16 +18,11 @@ def get_epic_data(api_key: str):
     return response.json()
 
 
-def get_epic(data, number: int):
-    file_url = convert.get_epic_url_v4(data, number)
-    return file_url
-
-
 def get_epics(api_key: str):
     data = get_epic_data(api_key)
     all_images = []
     for count in range(7):
-        image = get_epic(data, count)
+        image = utils.get_epic_url_v4(data, count)
         all_images.append(image)
     return all_images
 
@@ -42,7 +37,7 @@ if __name__ == "__main__":
         type=str,
         default=os.getenv("NASA_API_TOKEN", default=None),
     )
-    img_dir = fstream.get_img_directory(
+    img_dir = fstream.create_img_dir(
         os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
     )
     args = parser.parse_args()

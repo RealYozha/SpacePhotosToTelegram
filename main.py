@@ -5,13 +5,12 @@ import apod
 import epic
 import telegram_shorthands
 import standalone_publishing
-from pathlib import Path
 from dotenv import load_dotenv
 
 
 if __name__ == "__main__":
     load_dotenv()
-    all_images = fstream.get_img_directory(
+    all_images = fstream.create_img_dir(
         os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
     )
     fstream.download_image(

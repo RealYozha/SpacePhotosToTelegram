@@ -2,7 +2,7 @@ import standalone_utils as utils
 import os
 import argparse
 import time
-from fstream import get_img_directory
+from fstream import create_img_dir
 from telegram_shorthands import Bot
 from dotenv import load_dotenv
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         type=str,
     )
     args = parser.parse_args()
-    img_dir = get_img_directory(os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"))
+    img_dir = create_img_dir(os.getenv("IMAGES_DIRECTORY", default="./SpaceImages"))
     bot = None
     chatid = None
     if args.tg_bot_token:

@@ -1,12 +1,10 @@
 import webstream
 import os
-from shutil import rmtree
 from pathlib import Path
-from dotenv import load_dotenv
 from urllib import parse as urlparse
 
 
-def get_img_directory(img_dir: str = "./SpaceImages"):
+def create_img_dir(img_dir: str = "./SpaceImages"):
     path_img_dir = Path(img_dir)
     path_img_dir.mkdir(parents=True, exist_ok=True)
     return path_img_dir
@@ -27,7 +25,7 @@ def get_filename_from_url(url: str):
 
 
 def download_image(url: str, file_path_and_ext: str, query: dict = None):
-    get_img_directory()
+    create_img_dir()
     response = webstream.get_http(
         url=url, params=query, json=None, max_attempts=50, tickrate=0.2
     )
