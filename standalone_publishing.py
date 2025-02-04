@@ -60,6 +60,6 @@ if __name__ == "__main__":
         bot,
         chatid,
         img_dir,
-        utils.get_img_paths(),
+        utils.get_img_paths(img_dir),
         int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )
