@@ -4,6 +4,7 @@ import fstream
 import webstream
 import epic_utils as utils
 import os
+import logging
 from dotenv import load_dotenv
 
 
@@ -29,6 +30,7 @@ def get_epics(api_key: str):
 
 if __name__ == "__main__":
     load_dotenv()
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s ~/%(filename)s:%(funcName)s")
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--api_key",
@@ -43,7 +45,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     api_key = args.api_key
     if not api_key:
-        print("[ERR!] No NASA api key passed")
+        logging.error("no nasa api key passed")
         exit()
     for i, url in enumerate(get_epics(api_key)):
         f_name = fstream.get_filename_from_url(url)

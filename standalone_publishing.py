@@ -2,6 +2,7 @@ import standalone_utils as utils
 import os
 import argparse
 import time
+import logging
 from fstream import create_img_dir
 from telegram_shorthands import Bot
 from dotenv import load_dotenv
@@ -11,8 +12,7 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, all_paths: list[str
     wait_secs = wait_mins * 60
     # paths check
     if not all_paths:
-        print("[ERR!] No images found in provided directory. The script's going to close.")
-        print("[EXIT] Ending Script.")
+        logging.error("no images found in provided directory")
         exit()
     # standalone bot
     while True:
@@ -23,6 +23,7 @@ def run_standalone_bot(bot: Bot, chat_id: str, img_dir: str, all_paths: list[str
 
 if __name__ == "__main__":
     load_dotenv()
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s ~/%(filename)s:%(funcName)s")
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--tg_bot_token",
@@ -44,22 +45,18 @@ if __name__ == "__main__":
     if args.tg_bot_token:
         bot = Bot(args.tg_bot_token)
     else:
-        print("[ERR!] Telegram Bot Token not provided. The script's going to close.")
-        time.sleep(2)
-        print("[EXIT] Ending Script.")
+        logging.error("telegram Bot Token not provided")
         exit()
     if args.tg_chat_id:
         chatid = args.tg_chat_id
     else:
-        print("[ERR!] Telegram Chat Id not provided. The script's going to close.")
-        time.sleep(2)
-        print("[EXIT] Ending Script.")
+        logging.error("telegram Chat Id not provided")
         exit()
-    print("[StPub:Info] Use ^C (Ctrl+C) to stop.")
+    logging.warning("use ^C (Ctrl+C) to stop")
     run_standalone_bot(
         bot,
         chatid,
         img_dir,
-        utils.get_img_paths(img_dir),
+        utils.get_img_paths(),
         int(os.getenv("STANDALONE_PUBLISHING_INTERVAL_MINUTES", default=240)),
     )

@@ -1,5 +1,6 @@
 import webstream
 import os
+import logging
 from pathlib import Path
 from urllib import parse as urlparse
 
@@ -29,6 +30,7 @@ def download_image(url: str, file_path_and_ext: str, query: dict = None):
     response = webstream.get_http(
         url=url, params=query, json=None, max_attempts=50, tickrate=0.2
     )
-    print(f"[File:Info] Downloading {url} to {file_path_and_ext}")
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s ~/%(filename)s:%(funcName)s")
+    logging.debug(f"downloading {url} to {file_path_and_ext}")
     with open(f"{file_path_and_ext}", "wb") as file:
         file.write(response.content)

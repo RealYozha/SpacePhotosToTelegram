@@ -12,7 +12,5 @@ def get_img_paths(img_dir: str):
 
 
 def post_image(bot: Bot, cid: str, imgdir: str, path: str):
-    print("[StPub:Info] Posting image...")
     start = time()
     bot.publish_photo(cid, path, imgdir)
-    print(f"[StPub:Info] Posted in {time() - start}s!")

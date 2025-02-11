@@ -3,6 +3,7 @@ import argparse
 import fstream
 import webstream
 import os
+import logging
 from dotenv import load_dotenv
 
 
@@ -30,6 +31,7 @@ def get_apods(api_key: str, amount: int):
 
 if __name__ == "__main__":
     load_dotenv()
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s ~/%(filename)s:%(funcName)s")
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--api_key",
@@ -51,12 +53,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     api_key = args.api_key
     if not api_key:
-        print("[ERR!] No NASA api key passed")
+        logging.error("no nasa api key passed")
         exit()
     amount = args.amount
     if not amount:
-        print("[ERR!] No amount given!")
-        exit()
+        logging.warning("no amount given, setting to 5")
+        amount = 5
     for i, url in enumerate(get_apods(api_key, amount)):
         f_name = fstream.get_filename_from_url(url)
         f_path = img_dir / f"0x21-apod-{i}"
