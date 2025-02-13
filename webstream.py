@@ -19,12 +19,11 @@ def get_http(
     response = None
     for attempt in range(max_attempts):
         logging.debug(f"GET {url} attempt {attempt + 1}")
-        if not response:
-            response = requests.get(
-                url=url, params=params, json=json, headers=headers, auth=auth
-            )
-            sleep(1 / tickrate)  # zZ
-        if response:
+        response = requests.get(
+            url=url, params=params, json=json, headers=headers, auth=auth
+        )
+        if response.ok:
             logging.debug(f"GET {url} got response")
             response.raise_for_status()
             return response
+        sleep(1 / tickrate)  # zZ

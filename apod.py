@@ -24,8 +24,9 @@ def get_apods(api_key: str, amount: int):
     all_images = []
     apod_data = get_apod(api_key, amount)
     for index in apod_data:
-        image = index["url"]
-        all_images.append(image)
+        if index["media_type"] == "image":
+            image = index["url"]
+            all_images.append(image)
     return all_images
 
 
