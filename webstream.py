@@ -24,6 +24,5 @@ def get_http(
         )
         if response.ok:
             logging.debug(f"GET {url} got response")
-            response.raise_for_status()
             return response
         sleep(1 / tickrate)  # zZ
