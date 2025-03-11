@@ -40,7 +40,7 @@ if __name__ == "__main__":
         "-count",
         help="the amount of pictures to download",
         type=int,
-        default=1,
+        default=5,
     )
     img_dir = fstream.create_img_dir(
         os.getenv("IMAGES_DIRECTORY", default="./SpaceImages")
@@ -51,9 +51,9 @@ if __name__ == "__main__":
         logging.error("no nasa api key passed")
         exit()
     amount = args.amount
-    if not amount:
-        logging.warning("no amount given, setting to 5")
-        amount = 5
+    if amount == 0:
+        logging.warning("why in the world you would run a script to get nothing, amount set to 5")
+        amount = 1
     for i, url in enumerate(get_apods(api_key, amount)):
         f_name = fstream.get_filename_from_url(url)
         f_path = img_dir / f"0x21-apod-{i}"
