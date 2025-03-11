@@ -52,7 +52,7 @@ if __name__ == "__main__":
         exit()
     amount = args.amount
     if amount == 0:
-        logging.warning("why in the world you would run a script to get nothing, amount set to 5")
+        logging.warning("why in the world you would run a script to get nothing, amount set to 1")
         amount = 1
     for i, url in enumerate(get_apods(api_key, amount)):
         f_name = fstream.get_filename_from_url(url)
