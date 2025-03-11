@@ -16,7 +16,6 @@ def get_http(
     tickrate: int = 1,
 ):
     logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s ~/%(filename)s:%(funcName)s")
-    response = None
     for attempt in range(max_attempts):
         logging.debug(f"GET {url} attempt {attempt + 1}")
         response = requests.get(
