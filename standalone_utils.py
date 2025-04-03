@@ -12,5 +12,4 @@ def get_img_paths(img_dir: str):
 
 
 def post_image(bot: Bot, cid: str, imgdir: str, path: str):
-    start = time()
     bot.publish_photo(cid, path, imgdir)
