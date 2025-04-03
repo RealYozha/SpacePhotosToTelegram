@@ -48,6 +48,7 @@ if __name__ == "__main__":
         logging.error("no nasa api key passed")
         exit()
     for i, url in enumerate(get_epics(api_key)):
+        f_ext = fstream.get_file_extension(url)
         f_name = fstream.get_filename_from_url(url)
-        f_path = img_dir / f"0x22-epic-{i}"
+        f_path = img_dir / f"epic-{i}.{f_ext}"
         fstream.download_image(url, f_path, {"api_key": api_key})
