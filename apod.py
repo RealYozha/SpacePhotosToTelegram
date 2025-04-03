@@ -55,6 +55,7 @@ if __name__ == "__main__":
         logging.warning("why in the world you would run a script to get nothing, amount set to 1")
         amount = 1
     for i, url in enumerate(get_apods(api_key, amount)):
+        f_ext = fstream.get_file_extension(url)
         f_name = fstream.get_filename_from_url(url)
-        f_path = img_dir / f"0x21-apod-{i}"
+        f_path = img_dir / f"apod-{i}.{f_ext}"
         fstream.download_image(url, f_path, {"api_key": api_key})
