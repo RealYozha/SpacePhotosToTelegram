@@ -37,7 +37,7 @@ if __name__ == "__main__":
         for i, url in enumerate(images):
             filename = fstream.get_filename_from_url(url)
             fileext = fstream.get_file_extension(url)
-            file_path = img_dir / f"0x20-spacex-{i}"
+            file_path = img_dir / f"spacex-{i}.{fileext}"
             fstream.download_image(url, file_path)
         else:
             logging.info(f"saved {len(images)} images")
